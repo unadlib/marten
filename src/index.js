@@ -7,6 +7,7 @@ import {
   click,
 } from './lib/node';
 import sleep from './utils/sleep';
+import waitFor from './utils/waitFor';
 
 export {
   puppeteer,
@@ -14,4 +15,5 @@ export {
   getNode,
   click,
   sleep,
+  waitFor,
 };

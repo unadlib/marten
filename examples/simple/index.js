@@ -3,8 +3,10 @@ import {
   // findFrame,
   // click,
   sleep,
+  waitFor,
 } from '../../src/index';
 import config from '../../config';
+
 
 (async () => {
   const now = new Date().getTime();
@@ -16,6 +18,9 @@ import config from '../../config';
     ]
   });
   const page = await browser.newPage();
+  browser.on('targetcreated', target => {
+    console.log(target.url());
+  });
   // page.on('request', interceptedRequest => {
   //   const isRcUrl = interceptedRequest.url() && interceptedRequest.url().indexOf('ringcentral.com/restapi/') > -1;
   //   if (isRcUrl) {
@@ -63,14 +68,22 @@ import config from '../../config';
   await app.waitFor('[class*=styles_loginButton]', { hidden: true });
   await app.waitFor('[class*=styles_spinner]', { hidden: true });
   await app.waitFor(() => phone.adapter.ready);
-  await app.evaluate(() => document.querySelectorAll('[class*=styles_navigationButton]')[4].click());
-  await app.evaluate(() => document.querySelectorAll('[class*=styles_link]')[0].click());
-  await app.evaluate(() => document.querySelectorAll('[class*=styles_inputHolder]')[0].click());
-  await app.evaluate(() => document.querySelectorAll('[class*=styles_ellipsis]')[3].click());
-  await app.evaluate(() => document.querySelectorAll('[class*=styles_button]')[3].click());
-  await app.evaluate(() => document.querySelectorAll('[class*=styles_ellipsis]')[10].click());
-  await app.evaluate(() => document.querySelectorAll('[class*=components-Button-_styles_root]')[0].click());
-  await app.evaluate(() => document.querySelectorAll('[class*=styles_navigationButton]')[0].click());
+  await app.evaluate(() => document.querySelectorAll('[class*=styles_navigationButton]')[3].click());
+  await app.evaluate(() => document.querySelectorAll('[class*=styles_button]')[0].click());
+  await app.waitFor('[class*=styles_copiedText]');
+  await waitFor(async () => (await browser.pages()).length === 3);
+  console.log((await browser.pages()).map(page => page.url()));
+  const newPage= (await browser.pages())[2];
+  await newPage.waitFor(() => document.querySelectorAll('.forcePageBlockSectionView').length > 2);
+  await newPage.screenshot({path: 'example1.png'});
+  // await app.evaluate(() => document.querySelectorAll('[class*=styles_navigationButton]')[4].click());
+  // await app.evaluate(() => document.querySelectorAll('[class*=styles_link]')[0].click());
+  // await app.evaluate(() => document.querySelectorAll('[class*=styles_inputHolder]')[0].click());
+  // await app.evaluate(() => document.querySelectorAll('[class*=styles_ellipsis]')[3].click());
+  // await app.evaluate(() => document.querySelectorAll('[class*=styles_button]')[3].click());
+  // await app.evaluate(() => document.querySelectorAll('[class*=styles_ellipsis]')[10].click());
+  // await app.evaluate(() => document.querySelectorAll('[class*=components-Button-_styles_root]')[0].click());
+  // await app.evaluate(() => document.querySelectorAll('[class*=styles_navigationButton]')[0].click());
   await page.screenshot({path: 'example.png'});
   console.log(`Time: `, (new Date().getTime() - now) / 1000, `s`);
   await browser.close();
