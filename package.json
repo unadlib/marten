@@ -1,0 +1,36 @@
+{
+  "name": "marten",
+  "version": "0.0.1",
+  "description": "Javascript test framework based on Puppeteer with Webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unadlib/marten.git"
+  },
+  "keywords": [
+    "E2E",
+    "test"
+  ],
+  "author": "unadlib",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unadlib/marten/issues"
+  },
+  "homepage": "https://github.com/unadlib/marten#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.12.0"
+  },
+  "dependencies": {
+    "puppeteer": "^1.4.0",
+    "rxjs": "^6.1.0",
+    "webpack": "^4.8.3"
+  }
+}
