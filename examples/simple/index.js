@@ -12,6 +12,7 @@ import config from '../../config';
     ignoreHTTPSErrors: true,
     args: [
       '--use-fake-ui-for-media-stream',
+      //'--load-extension=/path/to/extension/'
     ]
   });
   const page = await browser.newPage();
