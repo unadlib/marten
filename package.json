@@ -1,7 +1,7 @@
 {
   "name": "marten",
   "version": "0.0.1",
-  "description": "Javascript test framework based on Puppeteer with Webpack",
+  "description": "Javascript E2E testing utilities based on Puppeteer with Webpack",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
