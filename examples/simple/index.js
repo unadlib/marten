@@ -73,7 +73,7 @@ import config from '../../config';
   await app.waitFor('[class*=styles_copiedText]');
   await waitFor(async () => (await browser.pages()).length === 3);
   console.log((await browser.pages()).map(page => page.url()));
-  const newPage= (await browser.pages())[2];
+  const newPage = (await browser.pages())[2];
   await newPage.waitFor(() => document.querySelectorAll('.forcePageBlockSectionView').length > 2);
   await newPage.screenshot({path: 'example1.png'});
   // await app.evaluate(() => document.querySelectorAll('[class*=styles_navigationButton]')[4].click());
