@@ -15,7 +15,7 @@ const options = {};
   ],
 })
 class Meeting extends CommonFlow {
-    @tag('sf', 'google')
+    @test('sf', 'google')
     @brand('rc', 'bt')
     @set([{
       startTime: ''
