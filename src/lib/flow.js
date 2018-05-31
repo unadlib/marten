@@ -1,5 +1,5 @@
 function Flow(globalConfig) {
-    return function(config = {}, fn) {
+    return function(fn, config = {}) {
         const targets = config.target || Object.entries(globalConfig).reduce(
            (_targets, [key, { brand = {} } = {}]) => [..._targets, [key, Object.keys(brand)]]
         ,[]);
