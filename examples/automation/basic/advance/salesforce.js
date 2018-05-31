@@ -61,7 +61,8 @@ class Salesforce {
 
     static async prepare() {
         await Salesforce.login.call(this);
-        await Salesforce.jumpLightning.call(this);
+        await sleep(2000);
+        // await Salesforce.jumpLightning.call(this);
         await this.page.screenshot({path: 'example.png'});
         // await Salesforce.waitForCTI.call(this);
     }
