@@ -1,54 +1,77 @@
-import flow from '../../';
-import NavigateTo from '../../';
-import Login from '../../';
-import CommonFlow from '../../';
-import LoginSaleforce from '../../';
-import { set, tag } from '../../';
-import brand from '../../';
+import Process from '../../basic/commons/index';
+import Navigate from '../../basic/steps/Navigate';
+import Login from '../../basic/steps/Login';
+// import Common from '../../';
+// import LoginSaleforce from '../../';
+// import { set, tag } from '../../';
+// import brand from '../../';
 
-const options = {};
+// const options = {};
 
-@flow({
-  steps: [
-    [Login, 'options'],
-    [NavigateTo, 'meeting'],
-  ],
+// @flow({
+//   steps: [
+//     [Login, 'options'],
+//     [NavigateTo, 'meeting'],
+//   ],
+// })
+// class Meeting extends Common {
+//     async createMeeting() {
+
+//     }
+
+//     @test('sf', 'google')
+//     @brand('rc', 'bt')
+//     @set([{
+//       startTime: ''
+//     }])
+//     async checkMeeting(options) {
+
+//     }
+// }
+
+// @flow({
+//   steps: (steps) => ([
+//     LoginSaleforce,
+//     ...steps
+//   ]),
+// })
+// class SalesforceMeeting extends Meeting {
+
+//   async createMeeting(options) {
+//     await super.createMeeting(options);
+//     // await checkCopyBorad(options);
+//   }
+
+//   @tag('sf')
+//   @set([{
+//     startTime: ''
+//   }])
+//   async checkMeeting(options) {
+//     //
+//     //
+//   }
+// }
+
+// `npx marten test --tag sf --brand rc`
+
+@Process.stage({
+  steps: [{
+    module: Login,
+  }, {
+    module: Navigate,
+  }],
 })
-class Meeting extends CommonFlow {
-    @test('sf', 'google')
-    @brand('rc', 'bt')
-    @set([{
-      startTime: ''
-    }])
-    async createMeeting(options) {
-      //
-      //
-    }
+class Meeting extends Process {
+  async create() {
 
-    async checkForms() {
+  }
 
-    }
+  async input(options) {
 
-    async main() {
-      await this.createMeeting();
-    }
-}
-
-@flow({
-  steps: (steps) => ([
-    LoginSaleforce,
-    ...steps
-  ]),
-})
-class SalesforceMeeting extends Meeting {
-  @tag('sf')
-  @set([{
-    startTime: ''
-  }])
-  async createMeeting(options) {
-    await super.createMeeting(options);
-    // await checkCopyBorad(options);
   }
 }
 
-`npx marten test --tag sf --brand rc`
+export {
+  Meeting as
+  default,
+}
