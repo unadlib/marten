@@ -33,6 +33,5 @@ class Process {
 }
 
 export {
-  Process as
-    default,
+  Process as default,
 };

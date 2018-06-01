@@ -1,6 +1,24 @@
 import sleep from '../../../../src/utils/sleep';
+const URI = {
+  home: 'https://na78.salesforce.com/home/showAllTabs.jsp'
+};
 
 class Salesforce {
+  static setIdentity() {
+    try {
+      const {
+        project,
+        global,
+        group : {
+          brand,
+        }
+      } = this._options;
+      return global[project].brand[brand];
+    } catch (e) {
+      throw new Error(`${project} need to add correct setting in 'config.js'`);
+    }
+  }
+
   static async login() {
     const {
       page,
@@ -14,6 +32,10 @@ class Salesforce {
     await page.waitForNavigation({
       waitUntil: 'domcontentloaded'
     });
+    await page.goto(URI.home);
+    // await page.waitForNavigation({
+    //   waitUntil: 'networkidle0'
+    // });
     await page.waitFor(() => document.querySelectorAll('div').length > 0);
   }
 
@@ -60,8 +82,9 @@ class Salesforce {
   }
 
   static async prepare() {
+    this.identity = Salesforce.setIdentity.call(this);
     await Salesforce.login.call(this);
-    await sleep(2000);
+    // await sleep(15000);
     // await Salesforce.jumpLightning.call(this);
     await this.page.screenshot({ path: 'example.png' });
     // await Salesforce.waitForCTI.call(this);

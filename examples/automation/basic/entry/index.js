@@ -1,21 +1,21 @@
 import salesforce from './salesforce';
 
-const projects = {
+const entries = {
   salesforce
 };
 
-async function entry(name) {
-  const project = projects[name];
-  if (typeof project !== 'function') {
-    throw new Error(`'${name}.js' must be created first`);
+async function getEntry(name) {
+  const entry = entries[name];
+  if (typeof entry !== 'function') {
+    throw new Error(`Entry: '${name}.js' must be created first`);
   }
-  const { prepare } = projects[name];
+  const { prepare } = entry;
   if (typeof prepare !== 'function') {
-    throw new Error(`'prepare' function in '${name}.js' must be set first`);
+    throw new Error(`'prepare' function in entry file '${name}.js' must be set first`);
   }
   await prepare.call(this);
 }
 
 export {
-  entry as default,
+  getEntry as default,
 };

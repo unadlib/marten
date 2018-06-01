@@ -1,24 +1,10 @@
 import puppeteer from 'puppeteer';
 import Process from '../../../../src/core/process';
 import entry from '../entry';
-import config from '../../config';
 
 class CommonProcess extends Process {
   constructor(options = {}) {
     super(options);
-    this._config = config;
-  }
-
-  get identity() {
-    try {
-      const {
-        project,
-        brand
-      } = this._options;
-      return this._config[project].brand[brand];
-    } catch (e) {
-      throw new Error(`${project} -> ${brand} need to add setting in 'config.js'`);
-    }
   }
 
   async _launch() {
