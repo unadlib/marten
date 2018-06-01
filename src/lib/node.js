@@ -19,4 +19,4 @@ async function click(page, selector) {
 export {
   click,
   getNode,
-}
+};

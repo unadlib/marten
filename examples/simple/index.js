@@ -7,7 +7,6 @@ import {
 } from '../../src/index';
 import config from '../../config';
 
-
 (async () => {
   // const now = new Date().getTime();
   // const browser = await puppeteer.launch({
@@ -75,7 +74,7 @@ import config from '../../config';
   console.log((await browser.pages()).map(page => page.url()));
   const newPage = (await browser.pages())[2];
   await newPage.waitFor(() => document.querySelectorAll('.forcePageBlockSectionView').length > 2);
-  await newPage.screenshot({path: 'example1.png'});
+  await newPage.screenshot({ path: 'example1.png' });
   // await app.evaluate(() => document.querySelectorAll('[class*=styles_navigationButton]')[4].click());
   // await app.evaluate(() => document.querySelectorAll('[class*=styles_link]')[0].click());
   // await app.evaluate(() => document.querySelectorAll('[class*=styles_inputHolder]')[0].click());
@@ -84,7 +83,7 @@ import config from '../../config';
   // await app.evaluate(() => document.querySelectorAll('[class*=styles_ellipsis]')[10].click());
   // await app.evaluate(() => document.querySelectorAll('[class*=components-Button-_styles_root]')[0].click());
   // await app.evaluate(() => document.querySelectorAll('[class*=styles_navigationButton]')[0].click());
-  await page.screenshot({path: 'example.png'});
+  await page.screenshot({ path: 'example.png' });
   console.log(`Time: `, (new Date().getTime() - now) / 1000, `s`);
   await browser.close();
 })();

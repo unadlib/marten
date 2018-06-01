@@ -4,4 +4,4 @@ async function sleep(time = 0) {
 
 export {
   sleep as default,
-}
+};

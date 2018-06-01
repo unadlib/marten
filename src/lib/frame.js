@@ -5,11 +5,9 @@ async function findFrame(page, url, wait = 500) {
   const urls = page.frames().map(frame => frame.url());
   const index = urls.indexOf(url);
   const isExist = index > -1;
-  return isExist ?
-    page.frames()[index] :
-    await findFrame(page, url, wait);
+  return isExist ? page.frames()[index] : await findFrame(page, url, wait);
 }
 
 export {
   findFrame,
-}
+};
