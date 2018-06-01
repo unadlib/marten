@@ -29,44 +29,34 @@ class Salesforce {
     await loginButton.click();
     await this.page.waitForNavigation({ waitUntil: 'domcontentloaded' });
     await this.page.goto(URI.home);
-    // await this.page.waitForNavigation({ waitUntil: 'networkidle0' });
   }
 
   static async jumpLightning() {
-    const {
-      page,
-    } = this;
-    await page.waitFor('.switch-to-lightning');
-    await page.click('.switch-to-lightning');
+    await this.page.waitFor('.switch-to-lightning');
+    await this.page.click('.switch-to-lightning');
   }
 
-  static async waitForLightningCTI() {
+  static async classic() {
+    await this.page.waitFor(() => window.frames.length > 2);
+    await this.page.frames()[3].waitFor(() => window.frames.length > 0);
+    this.app = this.page.frames()[4];
+  }
+
+  static async lightning() {
+    await Salesforce.jumpLightning.call(this);
     await this.page.waitFor('.flexipageComponent');
     await this.page.click('.flexipageComponent');
     const existFrames = () => window.frames.length > 0;
     await this.page.waitFor(existFrames);
     await this.page.frames()[0].waitFor(existFrames);
     await this.page.frames()[1].waitFor(existFrames);
-    this.app = this.page.frames()[2];
-  }
-
-  static async waitForClassicCTI() {
-    await this.page.waitFor(() => window.frames.length > 2);
-    await this.page.frames()[3].waitFor(() => window.frames.length > 0);
-    this.app = this.page.frames()[4];
-  }
+    this.app = this.page.frames()[2];  }
 
   static async prepare() {
     const { mode } = this._options.group;
     await Salesforce.login.call(this);
-    if (mode === 'lightning') {
-      await Salesforce.jumpLightning.call(this);
-      await Salesforce.waitForLightningCTI.call(this);
-    } else if (mode === 'classic') {
-      await Salesforce.waitForClassicCTI.call(this);
-    }
-    console.log(await this.app.evaluate(() => location.href), '======');
-    // await this.app.waitFor('[class*=styles_loginButton]');
+    await Salesforce[mode].call(this);
+    await this.app.waitFor('[class*=styles_loginButton]');
     await this.page.screenshot({ path: `${mode}.png` });
   }
 }
