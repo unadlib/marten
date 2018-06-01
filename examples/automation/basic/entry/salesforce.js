@@ -50,7 +50,8 @@ class Salesforce {
     await this.page.waitFor(existFrames);
     await this.page.frames()[0].waitFor(existFrames);
     await this.page.frames()[1].waitFor(existFrames);
-    this.app = this.page.frames()[2];  }
+    this.app = this.page.frames()[2];
+  }
 
   static async prepare() {
     const { mode } = this._options.group;
