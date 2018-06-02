@@ -32,14 +32,6 @@ class Process extends Basic {
     }
     // The basis of test process is complete.
   }
-
-  get program() {
-    return this._options.program;
-  }
-
-  get steps() {
-    return [];
-  }
 }
 
 export {

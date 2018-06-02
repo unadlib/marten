@@ -9,18 +9,12 @@ class Basic {
     this._options = options;
   }
 
-  static stage({
-                 steps,
-                 program,
-               } = {}) {
-    return function (target) {
-      Object.defineProperties(target.prototype, {
-        program: {
-          ...target.defaultProperty,
-          value: program,
-        }
-      });
-    };
+  get program() {
+    return this._options.program;
+  }
+
+  get steps() {
+    return [];
   }
 
   static get defaultProperty() {

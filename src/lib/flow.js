@@ -11,7 +11,7 @@ function Flow(globalConfig, {
         };
       }, {})
     ]], []);
-  return function (fn, config = {}) {
+  return function (Process, fn, config = {}) {
     let targets = globalTargets;
     if (config.targets) {
       targets = config.targets.map(
@@ -54,7 +54,7 @@ function Flow(globalConfig, {
       for (const group of groups) {
         for (const option of options) {
           const sign = statements => `${statements}(${project} in ${group.join(' & ')})`;
-          fn(sign, {
+          const options = {
             entry,
             program,
             global: globalConfig,
@@ -67,6 +67,12 @@ function Flow(globalConfig, {
               };
             }, {}),
             project,
+          };
+          const process = new Process(options);
+          fn({
+            sign,
+            process,
+            options,
           });
         }
       }
