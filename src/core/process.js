@@ -1,4 +1,5 @@
 import Basic from './basic';
+import entry from '../lib/entry';
 
 class Process extends Basic {
   constructor(options = {}) {
@@ -13,7 +14,7 @@ class Process extends Basic {
   }
 
   async _prepare() {
-    await this._options.entry.call(this, this._options.project);
+    await entry.call(this, this._options.project);
   }
 
   async run() {
