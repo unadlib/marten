@@ -6,6 +6,10 @@ class Process extends Basic {
     super(options);
   }
 
+  get program() {
+    return this._options.program || super.program;
+  }
+
   async _launch() {
     this.browser = await this.program.launch({
       ...this._options.global.setting,

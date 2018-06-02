@@ -1,3 +1,5 @@
+import puppeteer from 'puppeteer';
+
 const DEFAULT_PROPERTY = {
   configurable: false,
   enumerable: false,
@@ -10,7 +12,7 @@ class Basic {
   }
 
   get program() {
-    return this._options.program;
+    return puppeteer;
   }
 
   get steps() {
