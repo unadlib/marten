@@ -1,5 +1,5 @@
 function Flow(globalConfig) {
-  const globalTargets = Object.entries(globalConfig).reduce(
+  const globalTargets = Object.entries(globalConfig.project).reduce(
     (_targets, [project, ways]) => [..._targets, [project,
       Object.entries(ways).reduce((_ways, [way, paths]) => {
         return {

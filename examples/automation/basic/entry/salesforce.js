@@ -14,7 +14,7 @@ class Salesforce {
           brand,
         }
       } = this._options;
-      return global[project].brand[brand];
+      return global.project[project].brand[brand];
     } catch (e) {
       throw new Error(`${project} need to add correct setting in 'config.js'`);
     }
@@ -27,7 +27,7 @@ class Salesforce {
     await this.page.type('#password', this.identity.password);
     const loginButton = await this.page.$('#Login');
     await loginButton.click();
-    await this.page.waitForNavigation({ waitUntil: 'domcontentloaded' });
+    await this.page.waitFor('body');
     await this.page.goto(URI.home);
   }
 

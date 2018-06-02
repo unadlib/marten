@@ -9,11 +9,7 @@ class CommonProcess extends Process {
 
   async _launch() {
     this.browser = await this.program.launch({
-      ignoreHTTPSErrors: true,
-      args: [
-        '--use-fake-ui-for-media-stream'
-      ],
-      ...this._options.settings,
+      ...this._options.global.setting,
     });
     this.page = await this.browser.newPage();
   }

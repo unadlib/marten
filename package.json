@@ -31,7 +31,8 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.12.0",
     "jest": "^23.1.0",
-    "jest-html-reporter": "^2.3.0"
+    "jest-html-reporter": "^2.3.0",
+    "node-fetch": "^2.1.2"
   },
   "dependencies": {
     "puppeteer": "^1.4.0",
