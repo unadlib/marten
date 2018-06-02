@@ -20,12 +20,12 @@ describe('Meeting', () => {
       });
     },
     {
-      targets: [
-        ['salesforce', {
-          mode: ['lightning', 'classic'],
-          brand: ['rc'],
-        }]
-      ],
+      // targets: [
+      //   ['salesforce', {
+      //     mode: ['lightning'],
+      //     brand: ['rc'],
+      //   }]
+      // ],
       options: [{
         topic: 'Test Topic',
       }]
