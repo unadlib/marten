@@ -35,25 +35,11 @@ class Process extends Basic {
   }
 
   get program() {
-    return this._program || this._options.program;
+    return this._options.program;
   }
 
-  static stage({
-                 steps = [],
-                 program,
-               } = {}) {
-    return function (target) {
-      Object.defineProperties(target.prototype, {
-        _program: {
-          ...target.defaultProperty,
-          value: program,
-        },
-        steps: {
-          ...target.defaultProperty,
-          value: steps,
-        }
-      });
-    };
+  get steps() {
+    return [];
   }
 }
 
