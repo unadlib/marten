@@ -1,5 +1,5 @@
 // import Rx from 'rxjs';
-import flow from '../../lib/flow';
+import flow from '../../flow';
 import Meeting from './index';
 
 jest.setTimeout(2 * 60 * 1000);
