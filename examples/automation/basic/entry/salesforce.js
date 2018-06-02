@@ -58,7 +58,6 @@ class Salesforce {
     await Salesforce.login.call(this);
     await Salesforce[mode].call(this);
     await this.app.waitFor('[class*=styles_loginButton]');
-    await this.page.screenshot({ path: `${mode}.png` });
   }
 }
 

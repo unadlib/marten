@@ -21,10 +21,21 @@ class CommonProcess extends Process {
   async run() {
     await this._launch();
     await this._prepare();
+    for (const step of this.steps) {
+      if (Array.isArray(step)) {
+        const [module, options] = step;
+        await module.main(this, options);
+      } else if (typeof step === 'function') {
+        await step.main(this);
+      } else {
+        throw new Error(`'${this.name}' Process setup error.`)
+      }
+    }
+    await this.page.screenshot({ path: `screenshot.png` });
   }
 
   static stage({
-                 steps,
+                 steps = [],
                  program = puppeteer,
                } = {}) {
     return function (target) {
@@ -32,6 +43,10 @@ class CommonProcess extends Process {
         program: {
           ...target.defaultProperty,
           value: program,
+        },
+        steps: {
+          ...target.defaultProperty,
+          value: steps,
         }
       });
     };
