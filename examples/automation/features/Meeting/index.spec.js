@@ -15,6 +15,7 @@ describe('Meeting', () => {
       it(sign('Create Meeting => default value.'), async () => {
         process = new Meeting(options);
         await process.run();
+        await process.page.screenshot({ path: `${process._options.group.mode}.png` });
         // await process.input();
         expect(0).toEqual(0);
         // await process.create();
@@ -25,7 +26,7 @@ describe('Meeting', () => {
     {
       targets: [
         ['salesforce', {
-          mode: ['lightning'],
+          mode: ['lightning', 'classic'],
           brand: ['rc'],
         }]
       ],

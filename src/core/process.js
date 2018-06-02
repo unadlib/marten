@@ -30,7 +30,8 @@ class Process extends Basic {
         throw new Error(`'${this.name}' Process setup error.`)
       }
     }
-    await this.page.screenshot({ path: `screenshot.png` });
+    // The basis of test process is complete.
+
   }
 
   get program() {
