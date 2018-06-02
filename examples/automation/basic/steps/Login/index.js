@@ -20,4 +20,4 @@ class Login {
 
 export {
   Login as default,
-}
+};

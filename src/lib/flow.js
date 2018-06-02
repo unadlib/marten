@@ -17,23 +17,21 @@ function Flow(globalConfig, {
       targets = config.targets.map(
         (target) => {
           if (typeof target === 'string') {
-            return  globalTargets.find(([globalTarget]) => globalTarget === target);
+            return globalTargets.find(([globalTarget]) => globalTarget === target);
           }
           const [project, ways = {}] = target;
           return [
             project,
             Object.entries(
               globalTargets.find(([globalTarget]) => globalTarget === project)[1]
-            ).reduce((
-              _ways,
-              [type, way]
-            ) => ({
+            ).reduce((_ways,
+                      [type, way]) => ({
               ..._ways,
               [type]: ways[type] || way,
             }), {})
-          ]
+          ];
         }
-      )
+      );
     }
     // TODO CMD arguments set it.
     // console.log(process.argv);
@@ -66,7 +64,7 @@ function Flow(globalConfig, {
               return {
                 ..._group,
                 [key]: value,
-              }
+              };
             }, {}),
             project,
           });

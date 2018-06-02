@@ -10,4 +10,4 @@ class Navigation {
 
 export {
   Navigation as default,
-}
+};

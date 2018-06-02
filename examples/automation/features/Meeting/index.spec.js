@@ -26,7 +26,7 @@ describe('Meeting', () => {
     {
       targets: [
         ['salesforce', {
-          mode: ['lightning', 'classic'],
+          mode: ['lightning'],
           brand: ['rc'],
         }]
       ],

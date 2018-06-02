@@ -1,4 +1,3 @@
-import puppeteer from 'puppeteer';
 import {
   findFrame,
 } from './lib/frame';
@@ -10,7 +9,6 @@ import sleep from './utils/sleep';
 import waitFor from './utils/waitFor';
 
 export {
-  puppeteer,
   findFrame,
   getNode,
   click,
