@@ -1,4 +1,7 @@
-function Flow(globalConfig) {
+function Flow(globalConfig, {
+  entry,
+  program,
+}) {
   const globalTargets = Object.entries(globalConfig.project).reduce(
     (_targets, [project, ways]) => [..._targets, [project,
       Object.entries(ways).reduce((_ways, [way, paths]) => {
@@ -54,6 +57,8 @@ function Flow(globalConfig) {
         for (const option of options) {
           const sign = statements => `${statements}(${project} in ${group.join(' & ')})`;
           fn(sign, {
+            entry,
+            program,
             global: globalConfig,
             params: option,
             group: group.reduce((_group, name) => {
