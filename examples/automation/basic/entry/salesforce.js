@@ -25,8 +25,7 @@ class Salesforce {
     await this.page.goto(this.identity.url);
     await this.page.type('#username', this.identity.username);
     await this.page.type('#password', this.identity.password);
-    const loginButton = await this.page.$('#Login');
-    await loginButton.click();
+    await this.page.click('#Login');
     await this.page.waitFor('body');
     await this.page.goto(URI.home);
   }

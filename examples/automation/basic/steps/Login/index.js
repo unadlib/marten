@@ -1,8 +1,20 @@
 import fetch from 'node-fetch';
 
+// const accountURI = 'http://10.32.36.75:7789/env/xiaup/account/tag/rc_us_common';
+const accountURI = 'http://127.0.0.1:8080/config.json';
+const loginSever = 'http://api-xmnup.lab.nordigy.ru';
+
 class Login {
   static async makeAccount() {
-    this.account = await fetch('http://127.0.0.1:8080/config.json').then(res => res.json());
+    this.account = await fetch(accountURI).then(res => res.json());
+  }
+
+  static async toggleEnv() {
+    await this.app.evaluate(() => toggleEnv());
+    await this.app.waitFor('[class*=styles_input]');
+    await this.app.type('[class*=styles_input]', loginSever);
+    await this.app.click('[class*=styles_switch]');
+    await this.app.click('[class*=components-Button]');
   }
 
   static async login() {
@@ -14,6 +26,7 @@ class Login {
 
   static async main(that) {
     await this.makeAccount.call(that);
+    // await this.toggleEnv.call(that);
     await this.login.call(that);
   }
 }

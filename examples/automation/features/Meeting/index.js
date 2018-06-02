@@ -6,7 +6,7 @@ class Meeting extends Process {
   get steps() {
     return [
       [Login, {}],
-      [Navigate, {}],
+      // [Navigate, {}],
     ];
   }
 
