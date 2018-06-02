@@ -10,6 +10,7 @@ describe('Meeting', () => {
     ({ sign, options, process}) => {
       it(sign('Create Meeting => default value.'), async () => {
         await process.run();
+        await (await process.app.$('#viewport')).screenshot({ path: `screenshot.png` });
         await process.page.screenshot({ path: `${process._options.group.mode}.png` });
         // await process.input();
         expect(0).toEqual(0);
