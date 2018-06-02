@@ -4,7 +4,7 @@
   "description": "Javascript E2E testing utilities based on Puppeteer with Webpack",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "repository": {
     "type": "git",

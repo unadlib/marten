@@ -16,13 +16,13 @@ describe('Meeting', () => {
         // await process.create();
         // await expect(0).resolves.toEqual(0);
         expect(0).toEqual(0);
-        await process.browser.close();
+        await process.close();
       });
     },
     {
       targets: [
         ['salesforce', {
-          mode: ['lightning'],
+          mode: ['lightning', 'classic'],
           brand: ['rc'],
         }]
       ],
