@@ -31,7 +31,6 @@ class Process extends Basic {
       }
     }
     // The basis of test process is complete.
-
   }
 
   get program() {
