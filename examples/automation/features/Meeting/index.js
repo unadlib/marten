@@ -10,8 +10,8 @@ class Meeting extends Process {
     ];
   }
 
-  async input(options) {
-    console.log(options, '====');
+  async input(param) {
+    await this.app.type('[class*=styles_input]', param.topic);
   }
 
   async create() {

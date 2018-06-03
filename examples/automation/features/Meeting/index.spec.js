@@ -9,7 +9,7 @@ describe('Meeting', () => {
     ({ sign, options, process}) => {
       it(sign('Create Meeting => default value.'), async () => {
         await process.run();
-        await process.input();
+        await process.input(options.param);
         expect(0).toEqual(0);
         // await process.create();
         // await expect(0).resolves.toEqual(0);
@@ -28,7 +28,7 @@ describe('Meeting', () => {
           brand: ['rc'],
         }]
       ],
-      options: [{
+      params: [{
         topic: 'Test Topic',
       }]
     }

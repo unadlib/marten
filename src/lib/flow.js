@@ -35,7 +35,7 @@ function Flow(globalConfig, {
     }
     // TODO CMD arguments set it.
     // console.log(process.argv);
-    const options = config.options || [];
+    const params = config.params || [];
     for (const [project, ways] of targets) {
       const ways = Object.entries(ways)
         .map(([name, ways]) => ways.map(way => `${name}-${way}`));
@@ -52,13 +52,13 @@ function Flow(globalConfig, {
       };
       getGroups(ways);
       for (const group of groups) {
-        for (const option of options) {
+        for (const param of params) {
           const sign = statements => `${statements}(${project} in ${group.join(' & ')})`;
           const options = {
             entry,
             program,
             global: globalConfig,
-            params: option,
+            param,
             group: group.reduce((_group, name) => {
               const [key, value] = name.split('-');
               return {
