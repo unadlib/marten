@@ -20,8 +20,10 @@ describe('Meeting', () => {
           }
         });
         process.page.on('response', async (response) => {
-          if (response.url().endsWith(matchMeetingURI) &&
-            response.request().method() === 'POST') {
+          if (
+            response.url().endsWith(matchMeetingURI) &&
+            response.request().method() === 'POST'
+          ) {
             process.meetingResponse = await response.json();
           }
         });
