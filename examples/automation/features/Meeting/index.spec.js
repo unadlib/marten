@@ -11,9 +11,12 @@ describe('Meeting', () => {
         await process.run();
         await process.input(options.param);
         expect(process.topicValue).toEqual(options.param.topic);
-        // await process.create();
-        // await expect(0).resolves.toEqual(0);
-        // await (await process.app.$('#viewport')).screenshot({ path: `${process._options.group.mode}-screenshot.png` });
+        await process.create();
+        const isDisplayAlert = process.alertMessage.indexOf('Meeting is scheduled.') > -1;
+        expect(isDisplayAlert).toEqual(true);
+        await process.waitForSfPage();
+        expect(process.sfEventTitle).toEqual(options.param.topic);
+        await process.app.$('#viewport').then(node => node.screenshot({ path: `${process._options.group.mode}-screenshot.png` }));
         await process.page.screenshot({ path: `${process._options.group.mode}.png` });
         await process.close();
       });
@@ -25,7 +28,7 @@ describe('Meeting', () => {
           {
             mode: [
               'lightning',
-              // 'classic'
+              'classic'
             ],
             brand: [
               'rc'
