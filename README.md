@@ -7,8 +7,8 @@ Javascript E2E testing utilities based on Puppeteer.
 
 ## TODO
 
-- [ ] Command Line Interface
-- [ ] Mock Network request
+- [ ] command line interface
+- [ ] mock Network request
 - [ ] UI test
-- [ ] Performance report
-- [ ] Support `cucumber.js`
+- [ ] performance report
+- [ ] support `cucumber.js`
