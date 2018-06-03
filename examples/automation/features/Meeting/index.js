@@ -23,7 +23,8 @@ class Meeting extends Process {
   }
 
   async create() {
-
+    await this.app.click('[class*=styles_button]');
+    await this.app.waitFor('[class*=styles_copiedText]');
   }
 }
 
