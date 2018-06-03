@@ -5,8 +5,8 @@ import Login from '../../basic/steps/Login/salesforce';
 class Meeting extends Process {
   get steps() {
     return [
-      [Login, {}],
-      // [Navigate, {}],
+      [Login],
+      [Navigate, { page: 'Meeting' }],
     ];
   }
 
