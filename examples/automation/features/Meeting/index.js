@@ -11,7 +11,15 @@ class Meeting extends Process {
   }
 
   async input(param) {
-    await this.app.type('[class*=styles_input]', param.topic);
+    const selector = '[class*=styles_input]';
+    await this.app.evaluate((selector) => {
+      const topic = document.querySelector(selector);
+      topic.focus();
+      topic.select();
+    }, selector);
+    await this.page.keyboard.down('Delete');
+    await this.app.type(selector, param.topic);
+    this.topicValue = await this.app.$eval(selector, topic => topic.value);
   }
 
   async create() {
