@@ -10,11 +10,11 @@ class Meeting extends Process {
     ];
   }
 
-  async create() {
-
+  async input(options) {
+    console.log(options, '====');
   }
 
-  async input(options) {
+  async create() {
 
   }
 }
