@@ -19,7 +19,7 @@ class Meeting extends Process {
     }, selector);
     await this.page.keyboard.down('Delete');
     await this.page.keyboard.up('Delete');
-    await sleep(100);
+    await sleep(500);
     await this.app.type(selector, param.topic);
     this.topicValue = await this.app.$eval(selector, topic => topic.value);
   }
