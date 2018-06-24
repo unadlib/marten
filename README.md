@@ -12,7 +12,7 @@ A process control library.
 - [ ] Support one step mode of `Step`
 - [ ] Support every action mode of `Step`
 
-## Depend on puppeteer
+## Dependence
 - [ ] Others utilities
 - [ ] Network request data validation
 - [ ] Network request data mock
