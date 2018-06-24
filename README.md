@@ -1,14 +1,19 @@
 # marten
 
-Javascript E2E testing utilities based on Puppeteer.
+A process control library.
 
--------------------
-> Fast and easy E2E test code on Chrome.
+`Step` should be inheritable, composable & extensible.
 
 ## TODO
+- [ ] Support command line interface
+- [ ] Implement `Step` basics class module(`stage` & `step`)
+- [ ] Implement `process` decorator for dependence relationship
+- [ ] Support whole steps mode of `Step`
+- [ ] Support one step mode of `Step`
+- [ ] Support every action mode of `Step`
 
-- [ ] command line interface
-- [ ] mock Network request
-- [ ] UI test
-- [ ] performance report
-- [ ] support `cucumber.js`
+## Depend on puppeteer
+- [ ] Others utilities
+- [ ] Network request data validation
+- [ ] Network request data mock
+
