@@ -2,7 +2,7 @@ import Step, { prev, run } from './';
 import URI from './';
 
 class Entry extends Step {
-  async * login() {
+  async* login() {
     const identity = (
       yield await this.page.goto(this.identity.url)
     ) || this.identity;
@@ -13,17 +13,17 @@ class Entry extends Step {
     if (!isSkip) yield await this.page.goto(URI.home);
   }
 
-  async * classic() {
+  async* classic() {
 
   }
 
-  async * lightning() {
+  async* lightning() {
 
   }
 
-  async * main() {
+  async* main() {
     const { mode } = this._options.group;
-    yield * this[mode]();
+    yield* this[mode]();
   }
 }
 
@@ -33,11 +33,11 @@ class Entry extends Step {
   ]
 })
 class Account extends Step {
-  async * fetch() {
+  async* fetch() {
 
   }
 
-  async * main() {
+  async* main() {
 
   }
 }
@@ -48,11 +48,11 @@ class Account extends Step {
   ]
 })
 class Login extends Step {
-  async * goto() {
+  async* goto() {
 
   }
 
-  async * main() {
+  async* main() {
 
   }
 }
@@ -63,11 +63,11 @@ class Login extends Step {
   ]
 })
 class Navigation extends Step {
-  async * goto() {
+  async* goto() {
 
   }
 
-  async * main() {
+  async* main() {
 
   }
 }
@@ -86,19 +86,19 @@ class Meeting extends Step {
 
   }
 
-  async * create() {
+  async* create() {
     yield await this.inputTopic();
     yield await this.setDate();
   }
 
-  async * meetingDidCreate() {
+  async* meetingDidCreate() {
 
   }
 
-  async * main() {
-    yield * this.create();
-    yield * this.meetingDidCreate();
-    yield * this.meetingDidCreate();
+  async* main() {
+    yield* this.create();
+    yield* this.meetingDidCreate();
+    yield* this.meetingDidCreate();
   }
 }
 
