@@ -1,7 +1,7 @@
 # marten
 A flow controller library.
 
->`Step` should be composable, inheritable & extensible, freestyle step runner.
+>`Steps` support composable, inheritable & extensible, freestyle steps runner.
 
 ## APIs
 * move
