@@ -15,7 +15,7 @@
   * [steps.skipBefore(step)](#steps-skipBefore)
 
 
-[steps: Sequence](#steps-sequence)
+#### Steps Sequence
 
 
 
