@@ -3,57 +3,6 @@ import Steps, { actions } from './lib/harmony';
 // function actions(target, name, descriptor) {
 //   return descriptor;
 //
-class inputUserName extends Step {
-  aynsc do(){
-
-  }
-}
-
-class login extends Step {
-  aynsc do(){
-
-  }
-}
-
-class Entry extends Step {
-  async do() {
-    await input()
-    await login()
-  }
-  get steps() {
-    return [
-
-    ]
-  }
-}
-
-public class Test(){
-  public void T(){
-    LoingPage.InputUserName();
-    LoginPage.Login();
-    messagePge.....
-
-  }
-
-
-}
-
-public class LoginPage {
-  public void InputUserName(){
-
-
-  }
-
-  public Page LoginInZendesk(){
-
-    return messagePage;
-  }
-
-  public Page LoginInGoogle(){
-
-    return DialPage;
-  }
-}
 
 class Entry extends Steps {
   @actions
@@ -179,12 +128,7 @@ class Login extends Steps {
 
 class Navigation extends Steps {
   @actions
-  static async * prepare(config) {
-    const loginSequence = new Sequence([
-      login.og,
-      logi,
-    ])
-    yield loginSequence.exec();
+  async * prepare(config) {
     const login = new Login(config);
     yield login;
     yield * login.run(config);
@@ -192,11 +136,6 @@ class Navigation extends Steps {
 
   @actions
   async * goTo(page) {
-    const x = yield await new Promise(resolve => {
-      console.log('goTo: ', page);
-      resolve('goTo');
-    });
-    yield 'sss';
     yield await new Promise(resolve => {
       console.log('goTo: ', page);
       resolve('goTo');
@@ -217,14 +156,6 @@ class Navigation extends Steps {
     });
   }
 
-  async * browser () {
-    yield 1;
-    yield 1;
-    yield 1;
-    yield 1;
-    return brower;
-  }
-
   get steps() {
     return [
       this.prepare,
@@ -234,8 +165,6 @@ class Navigation extends Steps {
   }
 }
 
-
-
 // (async () => {
 //   const entry = new Entry({ input: 'input-args1'});
 //   // await entry.exec();
@@ -243,45 +172,36 @@ class Navigation extends Steps {
 //
 // })();
 
-// (async () => {
-//   const login = new Login({ click: 'bar', test: 'args' });
-//   const entry = await login.next();
-//   await entry.value.next();
-//   await entry.value.next('test2');
-//   await login.next('entry args1');
-//   await login.until('test2');
-//   login.move('test');
-//   await login.exec();
-// })();
-
-AC -> last Steps ->
-
-  Given userAccount ...
-  When
-  Then
-
-
-    function userAccount() {
-
-    }
 (async () => {
-  const browser = await navigation.exec('browser');
-  const entry = await login.value.next();
-  const entry = await login.value.next();
-  entry.value.skip('login');
-  await entry.value.next('testEntry');
-  console.log('-----------');
-
-  await login.value.next();
-  login.value.skip('inputUsername');
-  // await login.value.next();
-  // await login.value.next();
-  // await login.value.next();
-  console.log('-----------');
-  await login.value.until('click');
-  console.log('-----------');
-  login.value.move('test2');
-  await login.value.until('jump');
-  console.log('-----------');
-  await navigation.until(xxx.goTo);
+  const login = new Login({ click: 'bar', test: 'args' });
+  const entry = await login.next();
+  await entry.value.next();
+  await entry.value.next('test2');
+  await login.next('entry args1');
+  await login.until('test2');
+  console.log('----------');
+  login.move('test');
+  await login.exec();
 })();
+
+
+// (async () => {
+//   const navigation = new Navigation({ prepare: { click: 'bar1' } });
+//   const login = await navigation.next();
+//   const entry = await login.value.next();
+//   entry.value.skip('login');
+//   await entry.value.next('testEntry');
+//   console.log('-----------');
+//   await login.value.next();
+//   login.value.skip('inputUsername');
+//   // await login.value.next();
+//   // await login.value.next();
+//   // await login.value.next();
+//   console.log('-----------');
+//   await login.value.until('click');
+//   console.log('-----------');
+//   login.value.move('test2');
+//   await login.value.until('jump');
+//   console.log('-----------');
+//   await navigation.until('goTo');
+// })();

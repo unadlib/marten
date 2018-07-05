@@ -21,8 +21,8 @@
 >Merge the results of all step execution through context passing.
 
 #### Expected APIs
-- [steps: Sequence](#steps-sequence)
-- [controller: Steps](#controller-steps)
+- [class: Sequence](#class-sequence)
+- [class: Steps](#class-steps)
   * [steps.reset()](#stepsreset)
   * [steps.exec(sequence)](#stepsexecsequence)
   * [steps.execUntil(step)](#stepsexecuntilstep)
@@ -31,9 +31,9 @@
   * [steps.skipBefore(step)](#stepsskipbeforestep)
 
 
-#### Steps Sequence
+#### class: Sequence
 By sequence class, it can be redefined the combined sequence of child step between different steps.
-#### Controller Steps
+#### class: Steps
 Steps Runner can control the operation of the current sub Steps and adjust the original step sequence.
 ##### steps.reset()
 ##### steps.exec(sequence)
