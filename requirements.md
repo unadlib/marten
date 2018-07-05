@@ -46,6 +46,69 @@ Steps Runner can control the operation of the current sub Steps and adjust the o
 
 Examples: 
 
-```javascript
+```feature
+Feature: Simple login example
 
+  Scenario Outline: Login
+    Given User input <username> and <password>
+    When User clicks login button
+    Then User should see <result>
+    Examples:
+      | username   | password   | result             |
+      | 'username' | 'password' | 'usernamepassword' |
+```
+
+```javascript
+const { setWorldConstructor } = require('cucumber');
+
+class Browser {
+  constructor() {
+    this.browser = '';
+  }
+}
+
+setWorldConstructor(Browser);
+```
+
+```javascript
+const { Given, When, Then } = require('cucumber')
+const { expect } = require('chai')
+
+class Steps {}
+
+class Login extends Steps {
+  async inputUsername(username) {
+    this.browser = username
+  }
+
+  async inuputPassword(password) {
+    this.browser += password
+  }
+
+  async click() {
+    console.log(this,'---->click');
+  }
+
+  get steps() {
+    return [
+      this.inputUsername,
+      this.inuputPassword,
+      this.click,
+    ];
+  }
+}
+
+Given('User input {string} and {string}', async function(username, password) {
+  this.page = new Login();
+  await this.page.inputUsername.call(this, username);
+  await this.page.inuputPassword.call(this, password);
+})
+
+When('User clicks login button', async function() {
+  await this.page.click.call(this)
+});
+
+Then('User should see {string}', function(result) {
+  expect(this.browser).to.eql(result)
+});
 ```
