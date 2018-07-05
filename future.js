@@ -5,124 +5,6 @@ import Steps, { actions } from './lib/harmony';
 // }
 
 
-// class Steps {
-//   constructor(options = {}) {
-//     this._options = options;
-//     this._skiper = new Set();
-//     this._pointer = -1;
-//     this._currentStep = null;
-//     this._currentResult = null;
-//   }
-//
-//   static run(options) {
-//     const runner = new this(options);
-//     runner.init();
-//     return runner;
-//   }
-//
-//   skip(names) {
-//     if (Array.isArray(names)) {
-//       this._addSkiper(names);
-//     } else if (typeof names === 'string') {
-//       this._addSkiper([names]);
-//     } else {
-//       throw new Error('\'skip\' arguments type should be array or string.');
-//     }
-//   }
-//
-//   reset() {
-//     this._resetSkiper();
-//   }
-//
-//   async exec() {
-//     const [lastStep] = this.steps.slice(-1);
-//     await this.until(lastStep.name);
-//   }
-//
-//   async play(operate, name, ...args) {
-//     for (let index = this._pointer + 1; index < this.steps.length; index++) {
-//       const step = this.steps[index];
-//       if (typeof step !== 'function') {
-//         throw new Error('Step function was not exist.');
-//       }
-//       const isMatchingName = name === step.name;
-//       if (
-//         (operate === 'exclude' && isMatchingName) ||
-//         this._skiper.has(step.name)
-//       ) continue;
-//       if (operate === 'until' && isMatchingName) {
-//         // await step(this._options[step.name], ...args);
-//         await this.runner(step);
-//         this.move(index);
-//         return;
-//       } else {
-//         // await step(this._options[step.name], ...args);
-//         await this.runner(step);
-//         this.move(index);
-//       }
-//     }
-//     if (operate === 'until') {
-//       throw new Error(`Execution '${name}' with '${operate}' mode was invalid.`);
-//     }
-//   }
-//
-//   move(index) {
-//     if (index >= this.steps.length - 1) return;
-//     this._pointer = index;
-//     this._currentStep = this.steps[this._pointer + 1]();
-//     this._currentResult = null;
-//   }
-//
-//   async runner(step) {
-//     while (!this._currentResult || !this._currentResult.done) {
-//       this._currentResult = await this._currentStep.next();
-//     }
-//   }
-//
-//   async until(name) {
-//     await this.play('until', name);
-//   }
-//
-//   async before(name) {
-//     const index = this._getIndex(name);
-//     if (index > 0) {
-//       const { name } = this.steps[index - 1];
-//       await this.play('until', name);
-//     } else {
-//       throw new Error(`Execution to '${name}' was invalid.`);
-//     }
-//   }
-//
-//   init() {
-//     this.move(-1);
-//   }
-//
-//   async next(options) {
-//     const result = await this._currentStep.next(options);
-//     if (result && result.done) {
-//       const next = this._pointer + 1;
-//       this.move(next);
-//     }
-//     return result;
-//   }
-//
-//   get steps() {
-//     throw new Error('Getter \'steps\' should be implemented.');
-//   }
-//
-//   _getIndex(name) {
-//     return this.steps.findIndex(step => step.name === name);
-//   }
-//
-//   _addSkiper(names = []) {
-//     names.forEach(name => this._skiper.add(name));
-//   }
-//
-//   _resetSkiper() {
-//     this._skiper = new Set();
-//   }
-// }
-
 class Entry extends Steps {
   @actions
   async * input(config) {
@@ -284,50 +166,24 @@ class Navigation extends Steps {
   }
 }
 
-
 (async () => {
-  const login = new Login({ click: 'bar', test: 'args' });
-  const entry = await login.next();
-  await entry.value.next();
-  await entry.value.next('test2');
-  await login.next('entry args1');
-  await login.until('test2');
-  // login.move('test1');
-  // await login.next(1);
-  // await login.next(2);
-  // await login.exec({ click: 'bar1', test: 'args1' });
-
-
-  // login.skip('test');
-  // await login.exec();
-  // login.reset();
-  // login.move('inputUsername');
-  // login.skip('inputPassword');
-  // await login.until('click');
-  // await login.next();
-  // login.move('inputUsername');
-  // await login.exec();
-  // await login.exec();
-  // await login.before('click');
-  // await login.next();
-  // console.log('test');
-  // await login.exec();
-  // await login.next();
-  // await login.next();
-  // await login.next();
-  // await login.before('click');
-  // login.skip('inputPassword');
-  // await login.continue();
-  // await login.exclude('inputPassword');
-
-  // await login.inputUsername();
-  // await login.inputPassword();
-  // await login.click('testClick');
+  const entry = new Entry({ input: 'input-args1'});
+  await entry.exec();
+  // await entry.until('input');
 })();
 
 // (async () => {
+//   const login = new Login({ click: 'bar', test: 'args' });
+//   const entry = await login.next();
+//   await entry.value.next();
+//   await entry.value.next('test2');
+//   await login.next('entry args1');
+//   await login.until('test2');
+// })();
+
+
+// (async () => {
 //   const navigation = new Navigation({ prepare: { click: 'bar1' } });
-//   // await navigation.exec();
 //   const login = await navigation.next();
 //   const entry = await login.value.next();
 //   entry.value.skip('login');
@@ -345,11 +201,4 @@ class Navigation extends Steps {
 //   await login.value.until('jump');
 //   console.log('-----------');
 //   await navigation.until('goTo');
-//   // // await navigation.next();
-//   // await navigation.until('goTo');
-//   // await navigation.before('click');
-//
-//   // await navigation.inputUsername();
-//   // await navigation.inputPassword();
-//   // await navigation.click();
 // })();
