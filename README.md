@@ -1,22 +1,6 @@
 # marten
+A flow controller library.
 
-A process control library.
+>`Step` should be composable, inheritable & extensible, freestyle step runner.
 
-`Step` should be inheritable, composable & extensible.
-
-## TODO
-- [ ] Support command line interface
-- [ ] Implement `Step` basics class module(`stage` & `step`)
-- [ ] Implement `process` decorator for dependence relationship
-- [ ] Support whole steps mode of `Step`
-- [ ] Support one step mode of `Step`
-- [ ] Support every action mode of `Step`
-
-## Dependence
-- [ ] Others utilities
-- [ ] Network request data validation
-- [ ] Network request data mock
-- [ ] UI test
-- [ ] performance report
-- [ ] support `cucumber.js`
-
+## APIs
