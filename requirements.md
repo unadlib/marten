@@ -100,12 +100,12 @@ class Login extends Steps {
 
 Given('User input {string} and {string}', async function(username, password) {
   this.page = new Login();
-  await this.page.inputUsername.call(this, username);
-  await this.page.inuputPassword.call(this, password);
+  await this.page.inputUsername(this, username);
+  await this.page.inuputPassword(this, password);
 })
 
 When('User clicks login button', async function() {
-  await this.page.click.call(this)
+  await this.page.click(this)
 });
 
 Then('User should see {string}', function(result) {
