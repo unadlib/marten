@@ -61,9 +61,9 @@ By sequence or `Steps` class, it can be redefined the combined sequence or singl
 Steps Runner can control the operation of the current sub Steps and adjust the original step sequence.
 ##### steps.reset()
 ##### steps.skip(steps)
-##### steps.exec() [return <Promise>]
-##### steps.execTo(step) [return <Promise>]
-##### steps.execBefore(step) [return <Promise>]
+##### steps.exec() [return Promise]
+##### steps.execTo(step) [return Promise]
+##### steps.execBefore(step) [return Promise]
 
 #### Expected Boilerplate
 
