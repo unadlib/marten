@@ -22,12 +22,10 @@
 - [function: run](#function-run)
 - [class: Steps](#class-steps)
   * [steps.reset()](#stepsreset)
-  * [steps.exec(sequence)](#stepsexecsequence)
-  * [steps.execUntil(step)](#stepsexecuntilstep)
-  * [steps.execBefore(step)](#stepsexecbeforestep)
-  * [steps.skipUntil(step)](#stepsskipuntilstep)
-  * [steps.skipBefore(step)](#stepsskipbeforestep)
-
+  * [steps.skip(steps)](#stepsskipsteps)
+  * [steps.exec()[return Promise]](#stepsexec-return-promise)
+  * [steps.execTo(step)[return Promise]](#stepsexectostep-return-promise)
+  * [steps.execBefore(step)[return Promise]](#stepsexecbeforestep-return-promise)
 
 #### function: run
 By sequence or `Steps` class, it can be redefined the combined sequence or single `Steps` class for steps runner.
