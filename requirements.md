@@ -74,19 +74,19 @@ Steps Examples:
 import Steps from 'marten';
 
 class Login extends Steps {
-  async inputUsername(username) {
+  static async inputUsername(username) {
     // input username
   }
 
-  async inputPassword(password) {
+  static async inputPassword(password) {
     // input password
   }
 
-  async click() {
+  static async click() {
     // click
   }
 
-  get steps() {
+  static get steps() {
     return [
       this.inputUsername,
       this.inputPassword,
@@ -96,12 +96,12 @@ class Login extends Steps {
 }
 
 class Navigation extends Steps {
-  async goto() {
+  static async goto() {
     const login = run(Login);
     await login.exec();
   }
 
-  get steps() {
+  static get steps() {
     return [
       this.goto,
     ];
@@ -109,20 +109,20 @@ class Navigation extends Steps {
 }
 
 class Meeting extends Steps {
-  async prepare() {
+  static async prepare() {
     const navigation = run(Navigation);
     await navigation.exec();
   }
   
-  async input() {
+  static async input() {
     // input meeting options
   }
 
-  async create() {
+  static async create() {
     // create meeting
   }
 
-  get steps() {
+  static get steps() {
     return [
       this.prepare,
       this.input,
