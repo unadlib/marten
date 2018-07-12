@@ -7,13 +7,13 @@
 * Process steps runner with multiple granularity control.
 
 #### Expected Features
-* composable
+* Composable
 >Separate combination of steps.
-* inheritable & extensible
+* Inheritable & extensible
 >Support for object-oriented programming. 
-* customizable
+* Customizable
 >At run time, the arguments of any step are passed, the steps execution sequence can be customized, and the combination of any child steps is made.
-* controllable
+* Controllable
 >The execution granularity and position of the free control steps.
 * Context by arguments
 >Merge the results of all step execution through context passing.
@@ -23,9 +23,9 @@
 - [class: Steps](#class-steps)
   * [steps.reset()](#stepsreset)
   * [steps.skip(steps)](#stepsskipsteps)
-  * [steps.exec()[return Promise]](#stepsexec)
-  * [steps.execTo(step)[return Promise]](#stepsexectostep)
-  * [steps.execBefore(step)[return Promise]](#stepsexecbeforestep)
+  * [steps.exec(context)[return Promise]](#stepsexec)
+  * [steps.execTo(context, step)[return Promise]](#stepsexectostep)
+  * [steps.execBefore(context, step)[return Promise]](#stepsexecbeforestep)
 
 #### function: run
 By sequence or `Steps` class, it can be redefined the combined sequence or single `Steps` class for steps runner.
@@ -33,7 +33,7 @@ By sequence or `Steps` class, it can be redefined the combined sequence or singl
 * sequence
 
 ```javascript
-(async () => {
+(async (context) => {
   const steps = run([
     Login,
     Navigation,
@@ -43,25 +43,25 @@ By sequence or `Steps` class, it can be redefined the combined sequence or singl
     CallLogSection.changeId,
     CallLogSection.save,
   ]);
-  await steps.exec();
-});
+  await steps.exec(context);
+})();
 ```
 
 * single `Steps` class
 
 ```javascript
-(async () => {
+(async (context) => {
   const steps = run(MakeCalls);
-  await steps.exec();
-});
+  await steps.exec(context);
+})();
 ```
 #### class: Steps
 Steps Runner can control the operation of the current sub Steps and adjust the original step sequence.
 ##### steps.reset()
 ##### steps.skip(steps)
-##### steps.exec()
-##### steps.execTo(step)
-##### steps.execBefore(step)
+##### steps.exec(context)[return Promise]
+##### steps.execTo(context,step)[return Promise]
+##### steps.execBefore(context, step)[return Promise]
 
 #### Expected Boilerplate
 
@@ -69,7 +69,7 @@ Steps Examples:
 
 ```javascript
 
-import Steps from 'marten';
+import { Steps } from 'marten';
 
 class Login extends Steps {
   static async inputUsername(username) {
@@ -160,6 +160,7 @@ Feature: Simple login example
 const { Given, When, Then } = require('cucumber');
 const { expect } = require('chai');
 const { run } = require('marten');
+const Login = require('./Login');
 
 Given('User input {string} and {string}', async function(username, password) {
   this.loginSteps = run(Login);
@@ -193,6 +194,7 @@ Feature: Meeting
 const { Given, When, Then } = require('cucumber');
 const { expect } = require('chai');
 const { run } = require('marten');
+const Meeting = require('./Meeting');
 
 Given('User login CTI and navigate to meeting page', async function() {
   this.meetingSteps = run(Meeting);
@@ -212,6 +214,9 @@ Then('User should see {string}', function(result) {
 #### With Jest
 
 ```javascript
+import { flow } from './jestHelper';
+import Login from './Login';
+
 describe('Login', () => {
   flow(({ sign, options, ctx }) => {
     it(sign('Login => default value.'), async () => {
@@ -222,7 +227,7 @@ describe('Login', () => {
       // When: User clicks login button
       await loginSteps.click(ctx);
       // Then: User should see <result>
-      expect(ctx.getResult()).to.eql(expectedResult);
+      expect(ctx.getResult()).toEqual(expectedResult);
     });
   }, options);
 });
@@ -236,6 +241,9 @@ const options = {
 ```
 
 ```javascript
+import { flow } from './jestHelper';
+import Meeting from './Meeting';
+
 describe('Meeting', () => {
   flow(({ sign, options, ctx }) => {
     it(sign('Create Meeting => default value.'), async () => {
@@ -246,7 +254,7 @@ describe('Meeting', () => {
       await meetingSteps.input(ctx, options);
       await meetingSteps.create(ctx);
       // Then: User should see <result>
-      expect(ctx.getResult()).to.eql(expectedResult);
+      expect(ctx.getResult()).toEqual(expectedResult);
     });
   }, options);
 });
