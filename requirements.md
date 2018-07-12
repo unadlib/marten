@@ -62,7 +62,7 @@ Steps Runner can control the operation of the current sub Steps and adjust the o
 ##### steps.exec(context)[return Promise]
 ##### steps.execTo(context,step)[return Promise]
 ##### steps.execBefore(context, step)[return Promise]
-
+-------------------
 #### Expected Boilerplate
 
 Steps Examples: 
@@ -72,15 +72,15 @@ Steps Examples:
 import { Steps } from 'marten';
 
 class Login extends Steps {
-  static async inputUsername(username) {
+  static async inputUsername(ctx, username) {
     // input username
   }
 
-  static async inputPassword(password) {
+  static async inputPassword(ctx, password) {
     // input password
   }
 
-  static async click() {
+  static async click(ctx) {
     // click
   }
 
@@ -94,9 +94,9 @@ class Login extends Steps {
 }
 
 class Navigation extends Steps {
-  static async goto() {
+  static async goto(ctx) {
     const login = run(Login);
-    await login.exec();
+    await login.exec(ctx);
   }
 
   static get steps() {
@@ -107,16 +107,16 @@ class Navigation extends Steps {
 }
 
 class Meeting extends Steps {
-  static async prepare() {
+  static async prepare(ctx) {
     const navigation = run(Navigation);
-    await navigation.exec();
+    await navigation.exec(ctx);
   }
   
-  static async input() {
+  static async input(ctx) {
     // input meeting options
   }
 
-  static async create() {
+  static async create(ctx) {
     // create meeting
   }
 
