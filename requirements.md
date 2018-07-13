@@ -23,9 +23,9 @@
 - [class: Steps](#class-steps)
   * [steps.reset()](#stepsreset)
   * [steps.skip(steps)](#stepsskipsteps)
-  * [steps.exec(context)[return Promise]](#stepsexec)
-  * [steps.execTo(context, step)[return Promise]](#stepsexectostep)
-  * [steps.execBefore(context, step)[return Promise]](#stepsexecbeforestep)
+  * [steps.exec()[return Promise]](#stepsexec)
+  * [steps.execTo(step)[return Promise]](#stepsexectostep)
+  * [steps.execBefore(step)[return Promise]](#stepsexecbeforestep)
 
 #### function: run
 By sequence or `Steps` class, it can be redefined the combined sequence or single `Steps` class for steps runner.
@@ -42,8 +42,8 @@ By sequence or `Steps` class, it can be redefined the combined sequence or singl
     CallLog.manualLog,
     CallLogSection.changeId,
     CallLogSection.save,
-  ]);
-  await steps.exec(context);
+  ], context);
+  await steps.exec();
 })();
 ```
 
@@ -51,17 +51,17 @@ By sequence or `Steps` class, it can be redefined the combined sequence or singl
 
 ```javascript
 (async (context) => {
-  const steps = run(MakeCalls);
-  await steps.exec(context);
+  const steps = run(MakeCalls, context);
+  await steps.exec();
 })();
 ```
 #### class: Steps
 Steps Runner can control the operation of the current sub Steps and adjust the original step sequence.
 ##### steps.reset()
 ##### steps.skip(steps)
-##### steps.exec(context)[return Promise]
-##### steps.execTo(context,step)[return Promise]
-##### steps.execBefore(context, step)[return Promise]
+##### steps.exec()[return Promise]
+##### steps.execTo(step)[return Promise]
+##### steps.execBefore(step)[return Promise]
 -------------------
 #### Expected Boilerplate
 
@@ -163,13 +163,13 @@ const { run } = require('marten');
 const Login = require('./Login');
 
 Given('User input {string} and {string}', async function(username, password) {
-  this.loginSteps = run(Login);
-  await this.loginSteps.inputUsername(this, username);
-  await this.loginSteps.inputPassword(this, password);
+  this.loginSteps = run(Login, this);
+  await this.loginSteps.inputUsername(username);
+  await this.loginSteps.inputPassword(password);
 })
 
 When('User clicks login button', async function() {
-  await this.loginSteps.click(this)
+  await this.loginSteps.click()
 });
 
 Then('User should see {string}', function(result) {
@@ -197,13 +197,13 @@ const { run } = require('marten');
 const Meeting = require('./Meeting');
 
 Given('User login CTI and navigate to meeting page', async function() {
-  this.meetingSteps = run(Meeting);
-  await this.meetingSteps.prepare(this);
+  this.meetingSteps = run(Meeting, this);
+  await this.meetingSteps.prepare();
 })
 
 When('User input {string} and clicks create meeting button', async function(options) {
-  await this.meetingSteps.input(this, options);
-  await this.meetingSteps.create(this);
+  await this.meetingSteps.input(options);
+  await this.meetingSteps.create();
 });
 
 Then('User should see {string}', function(result) {
@@ -214,18 +214,19 @@ Then('User should see {string}', function(result) {
 #### With Jest
 
 ```javascript
+import { run } from 'marten';
 import { flow } from './jestHelper';
 import Login from './Login';
 
 describe('Login', () => {
   flow(({ sign, options, ctx }) => {
     it(sign('Login => default value.'), async () => {
-      const loginSteps = run(Login);
+      const loginSteps = run(Login, ctx);
       // Given: User input <username> and <password>
-      await loginSteps.inputUsername(ctx, options.username);
-      await loginSteps.inputPassword(ctx, options.password);
+      await loginSteps.inputUsername(options.username);
+      await loginSteps.inputPassword(options.password);
       // When: User clicks login button
-      await loginSteps.click(ctx);
+      await loginSteps.click();
       // Then: User should see <result>
       expect(ctx.getResult()).toEqual(expectedResult);
     });
@@ -241,18 +242,19 @@ const options = {
 ```
 
 ```javascript
+import { run } from 'marten';
 import { flow } from './jestHelper';
 import Meeting from './Meeting';
 
 describe('Meeting', () => {
   flow(({ sign, options, ctx }) => {
     it(sign('Create Meeting => default value.'), async () => {
-      const meetingSteps = run(Meeting);
+      const meetingSteps = run(Meeting, ctx);
       // Given: User login CTI and navigate to meeting page
-      await meetingSteps.prepare(ctx);
+      await meetingSteps.prepare();
       // When: User input <meeting> and clicks create meeting button
-      await meetingSteps.input(ctx, options);
-      await meetingSteps.create(ctx);
+      await meetingSteps.input(options);
+      await meetingSteps.create();
       // Then: User should see <result>
       expect(ctx.getResult()).toEqual(expectedResult);
     });
