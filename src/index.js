@@ -1,29 +1,19 @@
-// import Steps from './lib/steps';
 import Steps from './lib/steps';
-export { step } from '../src/lib/steps';
+import { generateItem, generateSteps, step } from './lib/harmony';
 
-export function createFlow(...stepsSequence) {
+/**
+ *
+ * @param stepsSequence
+ * @returns {function(*=): StepsFlow}
+ */
+function createFlow(...stepsSequence) {
   const _stepsSequence = stepsSequence.reduce((_stepsSequence, item) => {
-    let steps;
-    let _steps;
-    if (item.steps) {
-      // harmony(__steps__);
-      steps = item.steps;
-      _steps = item.steps.map((step) => {
-        return async function * (...args) {
-          return yield await step.call(this, ...args);
-        }.bind(item);
-      });
-    } else {
-      const step = async function * (...args) {
-        return yield await step.call(this, ...args);
-      };
-      steps = [item];
-      _steps = [step];
+    if (!item.steps) {
+      item = generateItem(item);
     }
     return {
-      steps: [..._stepsSequence.steps, ...steps],
-      _steps: [..._stepsSequence._steps, ..._steps],
+      steps: [..._stepsSequence.steps, ...item.steps],
+      _steps: [..._stepsSequence._steps, ...generateSteps(item)],
     };
   }, { steps: [], _steps: [] });
 
@@ -69,3 +59,8 @@ export function createFlow(...stepsSequence) {
 
   return (context) => new StepsFlow(context);
 }
+
+export {
+  createFlow,
+  step
+};

@@ -1,52 +1,52 @@
-import Steps from './steps';
+export const __async__generator__ = Symbol('__async__generator__');
 
-export const __actions__ = Symbol('__actions__');
-
-export function harmony(constructor) {
-  const _steps = constructor.steps.map(step => {
-    const isActions = constructor[__actions__].includes(step);
-    let _step = step;
-    if (!isActions) {
-      _step = async function * (...args) {
-        return yield await step.call(this, ...args);
-      }.bind(constructor);
-    }
-    return _step;
-  });
-  Object.defineProperties(constructor, {
-    _steps: {
-      get() {
-        return _steps;
-      },
-      enumerable: false,
-      configurable: true
-    }
-  });
-}
-
-export default class Harmony extends Steps {
-  _init() {
-    this._harmony();
-    super._init();
-  }
-
-  _harmony() {
-    harmony.call(this, this.constructor);
-  }
-
-  _isActions(step) {
-    return this.constructor[__actions__].includes(step);
-  }
-
-  _getStep(pointer) {
-    return this.constructor._steps[pointer];
-  }
-}
-
+/**
+ *
+ * @param target
+ * @param name
+ * @param descriptor
+ * @returns {*}
+ */
 export function step(target, name, descriptor) {
-  target.__proto__[__actions__] = [
-    ...target.__proto__[__actions__] || [],
+  if (!descriptor) {
+    target[__async__generator__] = [target];
+    return target;
+  }
+  target.__proto__[__async__generator__] = [
+    ...target.__proto__[__async__generator__] || [],
     descriptor.value,
   ];
   return descriptor;
+}
+
+/**
+ *
+ * @param item
+ * @returns {{steps: [null]}}
+ */
+export function generateItem(item) {
+  return {
+    steps: [item],
+    [__async__generator__]: item[__async__generator__],
+  };
+}
+
+/**
+ *
+ * @param item
+ * @returns {Array}
+ */
+export function generateSteps(item) {
+  return item.steps.map((step) => {
+    return async function * (...args) {
+      if (
+        Array.isArray(item[__async__generator__]) &&
+        item[__async__generator__].includes(step)
+      ) {
+        return yield * await step.call(this, ...args);
+      } else {
+        return yield await step.call(this, ...args);
+      }
+    }.bind(item);
+  });
 }

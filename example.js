@@ -6,15 +6,15 @@ class Entry {
   //   await Promise.resolve(1);
   //   console.log('init-0: ', ctx);
   // }
-  //
-  // @step
+
+  @step
   static async * init1(ctx) {
     console.log('init1: ', ctx);
     yield await Promise.resolve(1);
     console.log('init-1: ', ctx);
   }
   //
-  // @step
+  @step
   static async * init2(ctx) {
     yield await Promise.resolve(1);
     console.log('init2: ', ctx);
@@ -43,7 +43,7 @@ class Entry1 {
     console.log('init-10: ', ctx);
   }
 
-  @step
+  // @step
   static async * init1(ctx) {
     console.log('init11: ', ctx);
     yield await Promise.resolve(1);
@@ -78,24 +78,25 @@ class Entry1 {
 
 (async () => {
   const entry = createFlow(
-    {
-      steps: [
-        async function (...arg) {
-          console.log('test');
-          return 2
-        },
-        async function (...arg) {
-          console.log('test1');
-          return 1
-        },
-      ]
-    },
-    // Entry
+    // {
+    //   steps: [
+    //     async function (...arg) {
+    //       console.log('test');
+    //       return 2
+    //     },
+    //   ]
+    // },
+    // async function (...arg) {
+    //   console.log('test1');
+    //   return 1111
+    // },
+    Entry,
   )({text: 1});
   console.log(await entry.next());
-  console.log(await entry.next());
-  console.log(await entry.next());
-  await entry.exec();
+  // console.log(await entry.next());
+  // console.log('ss',await entry.next());
+  // console.log('ss1',await entry.next());
+  await entry.execTo(Entry.init1);
   // await entry.exec();
   // await entry.exec();
   // await entry.exec();

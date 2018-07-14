@@ -16,5 +16,8 @@ export default {
   },
   deprecated() {
     console.warn('The \'@step\' decorator on this function can be removed , which currently it supports only async generator function.')
+  },
+  invalid(operate) {
+    console.warn(`Execution '${operate}' mode invalid.`)
   }
 }

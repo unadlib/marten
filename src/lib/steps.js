@@ -168,6 +168,7 @@ export default class Steps {
     if (operate && !steps.includes(step)) {
       warning.execOperation(operate);
     }
+    if (this._pointer > steps.indexOf(step)) return warning.invalid();
     for (let index = this._pointer; index < steps.length; index++) {
       const next = index + 1;
       const _step = steps[index];
@@ -175,6 +176,7 @@ export default class Steps {
         warning.execStep();
       }
       const isPause = operate === 'execTo' && step === _step;
+      console.log(this._ignore.has(_step), isPause);
       if (this._ignore.has(_step)) {
         this._move(next);
         if (isPause) return;
@@ -260,7 +262,38 @@ export default class Steps {
   }
 }
 
+/**
+ *
+ * @param target
+ * @param name
+ * @param descriptor
+ * @returns {*}
+ */
 export function step(target, name, descriptor) {
   warning.deprecated();
   return descriptor;
+}
+
+/**
+ *
+ * @param item
+ * @returns {{steps: [null]}}
+ */
+export function generateItem(item) {
+  return {
+    steps: [item],
+  };
+}
+
+/**
+ *
+ * @param item
+ * @returns {Array}
+ */
+export function generateSteps(item) {
+  return item.steps.map((step) => {
+    return async function * (...args) {
+      return yield * await step.call(this, ...args);
+    }.bind(item);
+  });
 }
