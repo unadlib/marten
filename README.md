@@ -23,7 +23,7 @@ A flow controller library.
 - [function: createFlow](#function-createflow)
 - [class: Steps](#class-steps)
   * [steps.reset()](#stepsreset)
-  * [steps.skip([step])](#stepsskipsteps)
+  * [steps.skip([step])](#stepsskipstep)
   * [steps.exec()[return Promise]](#stepsexec)
   * [steps.execTo(step)[return Promise]](#stepsexectostep)
   * [steps.execBefore(step)[return Promise]](#stepsexecbeforestep)
@@ -57,16 +57,18 @@ Reset all steps ignore in the flow and initialize flow.
 Set skip some steps in the flow.
 
 ##### steps.exec()
-- return <[Promise]>
+- **return** <[Promise]>
 
 Execute the flow by set sequence and skip setting.
 
 ##### steps.execTo(step)
 - `step` <[function|class]>
+- **return** <[Promise]>
 
 Run steps until a step position.
 
 ##### steps.execBefore(step)
 - `step` <[function|class]>
+- **return** <[Promise]>
 
 Run steps before a step position.
