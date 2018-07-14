@@ -1,43 +1,72 @@
 # marten
 A flow controller library.
 
->`Steps` support composable, inheritable & extensible, freestyle steps runner.
+#### Solution Goal
+
+* High-quality reusable code by steps.
+* Maintainable decoupled process steps.
+* Process steps runner with multiple granularity control.
+
+#### Features
+* Composable
+>Separate combination of steps.
+* Inheritable & extensible
+>Support for object-oriented programming. 
+* Customizable
+>At run time, the arguments of any step are passed, the steps execution sequence can be customized, and the combination of any child steps is made.
+* Controllable
+>The execution granularity and position of the free control steps.
+* Context by arguments
+>Merge the results of all step execution through context passing.
 
 ## APIs
-- [pointer: Steps](#runner-steps)
-  * [steps.move(step)](#steps-move)
-  * [steps.skip(step)](#steps-skip)
-  * [steps.reset()](#steps-reset)
-- [runner: Steps](#runner-steps)
-  * [steps.until(step)](#steps-until)
-  * [steps.exec()](#steps-exec)
-  * [steps.before(step)](#steps-before)
+- [function: createFlow](#function-createflow)
+- [class: Steps](#class-steps)
+  * [steps.reset()](#stepsreset)
+  * [steps.skip([step])](#stepsskipsteps)
+  * [steps.exec()[return Promise]](#stepsexec)
+  * [steps.execTo(step)[return Promise]](#stepsexectostep)
+  * [steps.execBefore(step)[return Promise]](#stepsexecbeforestep)
 
-#### steps.move(step)
-- `step` <[string]>
+#### function: createFlow
+By sequence, it can be redefined the combined sequence steps for steps runner.
 
-Move the controller pointer to a step.
+* sequence
 
-#### steps.skip(step)
-- `step` <[string]>
+```javascript
+(async (context) => {
+  const flow = createFlow(
+    Login,
+    Navigation
+  )
+  const process = flow(context);
+  await process.exec();
+})();
+```
 
-Set Skip a step.
+#### class: Steps
+Steps Runner can be controlled the operation of the current sub steps by free.
 
-#### steps.reset()
+##### steps.reset()
 
-Reset all steps ignore and initialize pointer position.
+Reset all steps ignore in the flow and initialize flow.
 
-#### steps.until(step)
-- `step` <[string]>
+##### steps.skip([step])
+- `step` <[function]>
+
+Set skip some steps in the flow.
+
+##### steps.exec()
+- return <[Promise]>
+
+Execute the flow by set sequence and skip setting.
+
+##### steps.execTo(step)
+- `step` <[function|class]>
 
 Run steps until a step position.
 
-#### steps.exec(step)
-- `step` <[string]>
-
-Run steps by set sequence.
-
-#### steps.before(step)
-- `step` <[string]>
+##### steps.execBefore(step)
+- `step` <[function|class]>
 
 Run steps before a step position.

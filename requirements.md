@@ -28,7 +28,7 @@
   * [steps.execBefore(step)[return Promise]](#stepsexecbeforestep)
 
 #### function: createFlow
-By sequence `Steps` class, it can be redefined the combined sequence `Steps` class for steps runner.
+By sequence, it can be redefined the combined sequence steps for steps runner.
 
 * sequence
 
@@ -46,7 +46,7 @@ By sequence `Steps` class, it can be redefined the combined sequence `Steps` cla
 ```
 
 #### class: Steps
-Steps Runner can control the operation of the current sub Steps and adjust the original step sequence.
+Steps Runner can be controlled the operation of the current sub steps by free.
 ##### steps.reset()
 ##### steps.skip(steps)
 ##### steps.exec()[return Promise]
