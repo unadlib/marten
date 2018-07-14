@@ -17,10 +17,10 @@ class Entry {
   }
   //
   // @step
-  // static async * init2(ctx) {
-  //   yield await Promise.resolve(1);
-  //   console.log('init2: ', ctx);
-  // }
+  static async * init2(ctx) {
+    yield await Promise.resolve(1);
+    console.log('init2: ', ctx);
+  }
   //
   // @step
   // static async * init3(ctx) {
@@ -33,7 +33,7 @@ class Entry {
     return [
       // this.init,
       this.init1,
-      // this.init2,
+      this.init2,
       // this.init3,
     ];
   }
@@ -85,5 +85,5 @@ class Entry1 {
       return yield * Entry.init1(...arg);
     },
   )({text: 1});
-  await entry.exec();
+  await entry.execTo(Entry);
 })();

@@ -3,17 +3,17 @@ import Steps from './lib/steps';
 // import Steps, { harmony } from './lib/harmony';
 
 export function createFlow(...stepsSequence) {
-  const _stepsSequence = stepsSequence.reduce((sequence, __steps__) => {
-    let steps = [__steps__];
-    let _steps = [__steps__];
-    if (__steps__.steps) {
+  const _stepsSequence = stepsSequence.reduce((_stepsSequence, item) => {
+    let steps = [item];
+    let _steps = [item];
+    if (item.steps) {
       // harmony(__steps__);
-      steps = __steps__.steps;
-      _steps = __steps__.steps;
+      steps = item.steps;
+      _steps = item.steps;
     }
     return {
-      steps: [...sequence.steps, ...steps],
-      _steps: [...sequence._steps, ..._steps],
+      steps: [..._stepsSequence.steps, ...steps],
+      _steps: [..._stepsSequence._steps, ..._steps],
     };
   }, { steps: [], _steps: [] });
 
