@@ -16,7 +16,6 @@ export default class Steps {
     this._context = context;
     this._options = { start, ...options };
     this._ignore = new Set();
-    this._initialIndex = start;
     this._pointer = DEFAULT_INITIAL_INDEX;
     this._currentStep = null;
     this._currentResult = null;
@@ -35,6 +34,10 @@ export default class Steps {
     if (steps) {
       this._move(this._initialIndex);
     }
+  }
+
+  get _initialIndex() {
+    return this._options.start;
   }
 
   /**
@@ -56,6 +59,7 @@ export default class Steps {
   _move(index) {
     if (index < this.constructor.steps.length) {
       const step = this._getStep(index);
+      // step skip logic
       if (this._ignore.has(step)) {
         const next = index + 1;
         return this._move(next);
@@ -121,6 +125,7 @@ export default class Steps {
    * @returns {Steps}
    */
   move(step) {
+    // **This interface may be hidden.**
     const index = this._getIndex(step);
     return this._move(index);
   }
@@ -139,7 +144,8 @@ export default class Steps {
    * @param options
    * @returns {Promise.<void>}
    */
-  async * perform(options) {
+  async * run(options) {
+    // **This interface may be hidden.**
     Object.assign(this._options, options);
     yield await this.exec();
   }
@@ -164,6 +170,7 @@ export default class Steps {
    * @private
    */
   async _play(operate, step) {
+    // Is 'operate' arguments needed?
     const { steps } = this.constructor;
     if (operate && !steps.includes(step)) {
       warning.execOperation(operate);
@@ -177,15 +184,19 @@ export default class Steps {
       }
       const isPause = operate === 'execTo' && step === _step;
       if (this._ignore.has(_step)) {
+        // skip to next step
         this._move(next);
+        // if current step is last goal step.
         if (isPause) return;
         continue;
       }
+      // if current step is goal step.
       if (isPause) {
         await this._runner();
         this._move(next);
         return;
       } else {
+        // run current step and continue to the next step.
         await this._runner();
         this._move(next);
       }
