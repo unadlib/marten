@@ -24,7 +24,7 @@ function createFlow(...stepsSequence) {
         if (position.steps) {
           super._skip(position.steps);
         } else {
-          super._skip([options]);
+          super._skip(options);
         }
       });
       return this;

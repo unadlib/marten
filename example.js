@@ -1,74 +1,59 @@
-import { createFlow, step } from './src/index';
+import { createFlow } from './src/index';
 
-class Entry {
-  // static async init(ctx) {
-  //   console.log('init0: ', ctx);
-  //   await Promise.resolve(1);
-  //   console.log('init-0: ', ctx);
-  // }
-
-  @step
-  static async * init1(ctx) {
+export class Entry {
+  static async init(ctx) {
+    console.log('init0: ', ctx);
+    await Promise.resolve(0);
+    console.log('init-0: ', ctx);
+  }
+  static async init1(ctx) {
     console.log('init1: ', ctx);
-    yield await Promise.resolve(1);
+    await Promise.resolve(1);
     console.log('init-1: ', ctx);
   }
-  //
-  @step
-  static async * init2(ctx) {
-    yield await Promise.resolve(1);
-    console.log('init2: ', ctx);
-  }
-  //
-  // @step
-  // static async * init3(ctx) {
-  //   yield await Promise.resolve(1);
-  //   console.log('init3: ', ctx);
-  // }
-
 
   static get steps() {
     return [
-      // this.init,
+      this.init,
       this.init1,
-      this.init2,
-      // this.init3,
     ];
   }
 }
 class Entry1 {
   static async init(ctx) {
-    console.log('init10: ', ctx);
+    console.log('init0: ', ctx);
+    await Promise.resolve(0);
+    console.log('init-0: ', ctx);
+  }
+  static async init1(ctx) {
+    console.log('init1: ', ctx);
     await Promise.resolve(1);
-    console.log('init-10: ', ctx);
+    console.log('init-1: ', ctx);
   }
-
-  // @step
-  static async * init1(ctx) {
-    console.log('init11: ', ctx);
-    yield await Promise.resolve(1);
-    console.log('init-11: ', ctx);
-  }
-  //
-  // @step
-  // static async * init2(ctx) {
-  //   yield await Promise.resolve(1);
-  //   console.log('init2: ', ctx);
-  // }
-  //
-  // @step
-  // static async * init3(ctx) {
-  //   yield await Promise.resolve(1);
-  //   console.log('init3: ', ctx);
-  // }
-
 
   static get steps() {
     return [
-      // this.init,
+      this.init,
       this.init1,
-      // this.init2,
-      // this.init3,
+    ];
+  }
+}
+class Entry2 {
+  static async init(ctx) {
+    console.log('init0: ', ctx);
+    await Promise.resolve(0);
+    console.log('init-0: ', ctx);
+  }
+  static async init1(ctx) {
+    console.log('init1: ', ctx);
+    await Promise.resolve(1);
+    console.log('init-1: ', ctx);
+  }
+
+  static get steps() {
+    return [
+      this.init,
+      this.init1,
     ];
   }
 }
@@ -91,13 +76,13 @@ class Entry1 {
     //   return 1111
     // },
     Entry,
+    Entry1,
+    Entry2,
   )({text: 1});
-  console.log(await entry.next());
+  // console.log(await entry.next());
   // console.log(await entry.next());
   // console.log('ss',await entry.next());
   // console.log('ss1',await entry.next());
-  await entry.execTo(Entry.init1);
-  // await entry.exec();
-  // await entry.exec();
-  // await entry.exec();
+  entry.skip(Entry.init);
+  // await entry.execTo(Entry2);
 })();

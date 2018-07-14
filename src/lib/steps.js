@@ -176,7 +176,6 @@ export default class Steps {
         warning.execStep();
       }
       const isPause = operate === 'execTo' && step === _step;
-      console.log(this._ignore.has(_step), isPause);
       if (this._ignore.has(_step)) {
         this._move(next);
         if (isPause) return;
@@ -263,7 +262,7 @@ export default class Steps {
 }
 
 /**
- *
+ * '@step' descriptor removable warning.
  * @param target
  * @param name
  * @param descriptor
