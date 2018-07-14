@@ -1,7 +1,7 @@
 export const __async__generator__ = Symbol('__async__generator__');
 
 /**
- *
+ * '@step' descriptor and function wrapper for harmony for [async function], sign async generator step.
  * @param target
  * @param name
  * @param descriptor
@@ -20,7 +20,7 @@ export function step(target, name, descriptor) {
 }
 
 /**
- *
+ * Wrap item by array and harmony for [async function].
  * @param item
  * @returns {{steps: [null]}}
  */
@@ -32,7 +32,7 @@ export function generateItem(item) {
 }
 
 /**
- *
+ * Wrap async generator steps and harmony for [async function].
  * @param item
  * @returns {Array}
  */

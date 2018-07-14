@@ -274,9 +274,9 @@ export function step(target, name, descriptor) {
 }
 
 /**
- *
+ * Wrap item by array
  * @param item
- * @returns {{steps: [null]}}
+ * @returns {{steps: [function]}}
  */
 export function generateItem(item) {
   return {
@@ -285,7 +285,7 @@ export function generateItem(item) {
 }
 
 /**
- *
+ * Wrap async generator steps.
  * @param item
  * @returns {Array}
  */

@@ -2,7 +2,9 @@ import Steps from './lib/steps';
 import { generateItem, generateSteps, step } from './lib/harmony';
 
 /**
- *
+ * Create steps flow.
+ * const flow = createFlow(steps);
+ * flow(context); // batch to inject context.
  * @param stepsSequence
  * @returns {function(*=): StepsFlow}
  */

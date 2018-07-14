@@ -63,18 +63,18 @@ class Entry2 {
 
 (async () => {
   const entry = createFlow(
-    // {
-    //   steps: [
-    //     async function (...arg) {
-    //       console.log('test');
-    //       return 2
-    //     },
-    //   ]
-    // },
-    // async function (...arg) {
-    //   console.log('test1');
-    //   return 1111
-    // },
+    {
+      steps: [
+        async function (...arg) {
+          console.log('foo');
+          return 2222
+        },
+      ]
+    },
+    async function (...arg) {
+      console.log('bar');
+      return 1111
+    },
     Entry,
     Entry1,
     Entry2,
@@ -84,5 +84,5 @@ class Entry2 {
   // console.log('ss',await entry.next());
   // console.log('ss1',await entry.next());
   entry.skip(Entry.init);
-  // await entry.execTo(Entry2);
+  await entry.execTo(Entry2);
 })();
