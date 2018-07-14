@@ -1,0 +1,63 @@
+import Steps from './lib/steps';
+
+// import Steps, { harmony } from './lib/harmony';
+
+export function createFlow(...stepsSequence) {
+  const _stepsSequence = stepsSequence.reduce((sequence, __steps__) => {
+    let steps = [__steps__];
+    let _steps = [__steps__];
+    if (__steps__.steps) {
+      // harmony(__steps__);
+      steps = __steps__.steps;
+      _steps = __steps__.steps;
+    }
+    return {
+      steps: [...sequence.steps, ...steps],
+      _steps: [...sequence._steps, ..._steps],
+    };
+  }, { steps: [], _steps: [] });
+
+  console.log(_stepsSequence);
+
+  class StepsFlow extends Steps {
+
+    skip(...options) {
+      options.forEach((position) => {
+        if (position.steps) {
+          super._skip(position.steps);
+        } else {
+          super._skip([options]);
+        }
+      });
+      return this;
+    }
+
+    async execTo(position, options) {
+      if (position.steps) {
+        const [last] = position.steps.slice(-1);
+        await super.execTo(last, options);
+      } else {
+        await super.execTo(position, options);
+      }
+    }
+
+    async execBefore(position, options) {
+      if (position.steps) {
+        const [first] = position.steps;
+        await super.execBefore(first, options);
+      } else {
+        await super.execBefore(position, options);
+      }
+    }
+
+    static get _steps() {
+      return _stepsSequence._steps;
+    }
+
+    static get steps() {
+      return _stepsSequence.steps;
+    }
+  }
+
+  return (context) => new StepsFlow(context);
+}
