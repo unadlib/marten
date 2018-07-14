@@ -59,7 +59,7 @@ function createFlow(...stepsSequence) {
     }
   }
 
-  return (context) => new StepsFlow(context);
+  return (context, options) => new StepsFlow(context, options);
 }
 
 export {

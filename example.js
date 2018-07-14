@@ -79,10 +79,6 @@ class Entry2 {
     Entry1,
     Entry2,
   )({text: 1});
-  // console.log(await entry.next());
-  // console.log(await entry.next());
-  // console.log('ss',await entry.next());
-  // console.log('ss1',await entry.next());
   entry.skip(Entry.init);
   await entry.execTo(Entry2);
 })();
