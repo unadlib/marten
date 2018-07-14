@@ -31,8 +31,6 @@ A flow controller library.
 #### function: createFlow
 By sequence, it can be redefined the combined sequence steps for steps runner.
 
-* sequence
-
 ```javascript
 (async (context) => {
   const flow = createFlow(
