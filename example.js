@@ -1,6 +1,4 @@
-import { step } from './src/lib/harmony';
-// import { step } from './src/lib/steps';
-import { createFlow } from './src/index';
+import { createFlow, step } from './src/index';
 
 class Entry {
   // static async init(ctx) {
@@ -80,10 +78,25 @@ class Entry1 {
 
 (async () => {
   const entry = createFlow(
-    Entry,
-    async function * (...arg) {
-      return yield * Entry.init1(...arg);
+    {
+      steps: [
+        async function (...arg) {
+          console.log('test');
+          return 2
+        },
+        async function (...arg) {
+          console.log('test1');
+          return 1
+        },
+      ]
     },
+    // Entry
   )({text: 1});
-  await entry.execTo(Entry);
+  console.log(await entry.next());
+  console.log(await entry.next());
+  console.log(await entry.next());
+  await entry.exec();
+  // await entry.exec();
+  // await entry.exec();
+  // await entry.exec();
 })();

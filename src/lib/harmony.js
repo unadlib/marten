@@ -1,6 +1,6 @@
 import Steps from './steps';
 
-const __actions__ = Symbol('__actions__');
+export const __actions__ = Symbol('__actions__');
 
 export function harmony(constructor) {
   const _steps = constructor.steps.map(step => {

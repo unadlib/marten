@@ -1,23 +1,31 @@
+// import Steps from './lib/steps';
 import Steps from './lib/steps';
-
-// import Steps, { harmony } from './lib/harmony';
+export { step } from '../src/lib/steps';
 
 export function createFlow(...stepsSequence) {
   const _stepsSequence = stepsSequence.reduce((_stepsSequence, item) => {
-    let steps = [item];
-    let _steps = [item];
+    let steps;
+    let _steps;
     if (item.steps) {
       // harmony(__steps__);
       steps = item.steps;
-      _steps = item.steps;
+      _steps = item.steps.map((step) => {
+        return async function * (...args) {
+          return yield await step.call(this, ...args);
+        }.bind(item);
+      });
+    } else {
+      const step = async function * (...args) {
+        return yield await step.call(this, ...args);
+      };
+      steps = [item];
+      _steps = [step];
     }
     return {
       steps: [..._stepsSequence.steps, ...steps],
       _steps: [..._stepsSequence._steps, ..._steps],
     };
   }, { steps: [], _steps: [] });
-
-  console.log(_stepsSequence);
 
   class StepsFlow extends Steps {
 
