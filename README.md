@@ -34,11 +34,15 @@ By sequence, it can be redefined the combined sequence steps for steps runner.
 ```javascript
 (async (context) => {
   const flow = createFlow(
-    Login,
-    Navigation
-  )
-  const process = flow(context);
-  await process.exec();
+      Login,
+      Navigation,
+      Setting,
+      MakeCalls,
+    )
+    const process = flow(context);
+    await process.execTo(Navigation);
+    await process.execBefore(Setting.callingSetting);
+    await process.exec();
 })();
 ```
 
