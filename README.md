@@ -1,5 +1,5 @@
 # marten
-A flow controller library.
+A Flow Controller Library.
 
 #### Solution Goal
 

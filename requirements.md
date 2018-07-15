@@ -35,10 +35,12 @@ By sequence, it can be redefined the combined sequence steps for steps runner.
   const flow = createFlow(
     Login,
     Navigation,
-    CallingSetting,
+    Setting,
     MakeCalls,
   )
   const process = flow(context);
+  await process.execTo(Navigation);
+  await process.execBefore(Setting.callingSetting);
   await process.exec();
 })();
 ```
