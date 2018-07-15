@@ -9,6 +9,14 @@ export const __async__generator__ = Symbol('__async__generator__');
  */
 export function step(target, name, descriptor) {
   if (!descriptor) {
+    // support bindable this
+    if (this) {
+      this[__async__generator__] = [
+        ...this[__async__generator__] || [],
+        target
+      ];
+      return target;
+    }
     target[__async__generator__] = [target];
     return target;
   }

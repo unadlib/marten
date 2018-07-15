@@ -54,14 +54,25 @@ export class Entry2 {
   }
 }
 
+const a = {};
 
 (async () => {
   const entry = createFlow(
-    Entry2,
+    Object.assign(a, {
+      steps: [
+        step.call(a, async function * () {
+          console.log('foobar');
+        }),
+      ]
+    }),
+    // step(async function * () {
+    //   console.log('foobar211');
+    // }),
+    // Entry2,
   )({text: 1});
-  const x = await entry.next(1);
-  const y = await x.value.next(12);
-  console.log(await y.value.next(123));
-  console.log(await y.value.next(1234));
+  // const x = await entry.next(1);
+  // const y = await x.value.next(12);
+  // console.log(await y.value.next(123));
+  // console.log(await y.value.next(1234));
   await entry.exec();
 })();
