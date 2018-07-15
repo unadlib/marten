@@ -1,15 +1,18 @@
-import { createFlow } from './src/index';
+import { createFlow, step } from './src/index';
 
 export class Entry {
-  static async init(ctx) {
+  @step
+  static async * init(ctx) {
     console.log('init0: ', ctx);
-    await Promise.resolve(0);
-    console.log('init-0: ', ctx);
+    const test = yield await Promise.resolve(10);
+    console.log('init-0: ', ctx, test);
   }
-  static async init1(ctx) {
-    console.log('init1: ', ctx);
-    await Promise.resolve(1);
-    console.log('init-1: ', ctx);
+
+  @step
+  static async * init1(ctx) {
+    console.log('init10: ', ctx);
+    const test = yield await Promise.resolve(101);
+    console.log('init-10: ', ctx, test);
   }
 
   static get steps() {
@@ -19,66 +22,46 @@ export class Entry {
     ];
   }
 }
-class Entry1 {
-  static async init(ctx) {
-    console.log('init0: ', ctx);
-    await Promise.resolve(0);
-    console.log('init-0: ', ctx);
-  }
-  static async init1(ctx) {
-    console.log('init1: ', ctx);
-    await Promise.resolve(1);
-    console.log('init-1: ', ctx);
+export class Entry1 {
+  @step
+  static async * init(ctx) {
+    const entry = createFlow(Entry)(ctx);
+    const something = yield entry;
+    console.log('Entry1 ->', something);
+    yield * entry.run(ctx);
   }
 
   static get steps() {
     return [
       this.init,
-      this.init1,
     ];
   }
 }
-class Entry2 {
-  static async init(ctx) {
-    console.log('init0: ', ctx);
-    await Promise.resolve(0);
-    console.log('init-0: ', ctx);
-  }
-  static async init1(ctx) {
-    console.log('init1: ', ctx);
-    await Promise.resolve(1);
-    console.log('init-1: ', ctx);
+
+export class Entry2 {
+  @step
+  static async * init(ctx) {
+    const entry1 = createFlow(Entry1)(ctx);
+    const something = yield entry1;
+    console.log('Entry2 ->', something);
+    yield * entry1.run(ctx);
   }
 
   static get steps() {
     return [
       this.init,
-      this.init1,
     ];
   }
 }
-
-
 
 
 (async () => {
   const entry = createFlow(
-    {
-      steps: [
-        async function (...arg) {
-          console.log('foo');
-          return 2222
-        },
-      ]
-    },
-    async function (...arg) {
-      console.log('bar');
-      return 1111
-    },
-    Entry,
-    Entry1,
     Entry2,
   )({text: 1});
-  entry.skip(Entry.init);
-  await entry.execTo(Entry2);
+  const x = await entry.next(1);
+  const y = await x.value.next(12);
+  console.log(await y.value.next(123));
+  console.log(await y.value.next(1234));
+  await entry.exec();
 })();
