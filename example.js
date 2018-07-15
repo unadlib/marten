@@ -65,9 +65,18 @@ const a = {};
         }),
       ]
     }),
-    // step(async function * () {
-    //   console.log('foobar211');
-    // }),
+    {
+      get steps() {
+        return [
+          step.call(this, async function * () {
+            console.log('foobar1');
+          }),
+        ]
+      }
+    },
+    step(async function * () {
+      console.log('foobar2');
+    }),
     // Entry2,
   )({text: 1});
   // const x = await entry.next(1);
