@@ -54,23 +54,23 @@ Steps Runner can be controlled the operation of the current sub steps by free.
 Reset all steps ignore in the flow and initialize flow.
 
 ##### steps.skip([step])
-- `step` <function>
+- `step` <`function`>
 
 Set skip some steps in the flow.
 
 ##### steps.exec()
-- **return** <Promise>
+- **return** <`Promise`>
 
 Execute the flow by set sequence and skip setting.
 
 ##### steps.execTo(step)
-- `step` <function|class>
-- **return** <Promise>
+- `step` <`function|class`>
+- **return** <`Promise`>
 
 Run steps until a step position.
 
 ##### steps.execBefore(step)
-- `step` <[function|class]>
-- **return** <Promise>
+- `step` <`function|class`>
+- **return** <`Promise`>
 
 Run steps before a step position.
