@@ -1,4 +1,4 @@
-import { createFlow } from '../../src/index';
+import { createProcess } from '../../src/index';
 
 export class Entry {
   static async init(ctx) {
@@ -63,7 +63,7 @@ class Entry2 {
 
 
 (async () => {
-  const entry = createFlow(
+  const entry = createProcess(
     {
       steps: [
         async function (...arg) {

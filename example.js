@@ -1,4 +1,4 @@
-import { createFlow, step } from './src/index';
+import { createProcess, step } from './src/index';
 
 export class Entry {
   @step
@@ -25,7 +25,7 @@ export class Entry {
 export class Entry1 {
   @step
   static async * init(ctx) {
-    const entry = createFlow(Entry)(ctx);
+    const entry = createProcess(Entry)(ctx);
     const something = yield entry;
     console.log('Entry1 ->', something);
     yield * entry.run(ctx);
@@ -41,7 +41,7 @@ export class Entry1 {
 export class Entry2 {
   @step
   static async * init(ctx) {
-    const entry1 = createFlow(Entry1)(ctx);
+    const entry1 = createProcess(Entry1)(ctx);
     const something = yield entry1;
     console.log('Entry2 ->', something);
     yield * entry1.run(ctx);
@@ -57,7 +57,7 @@ export class Entry2 {
 const a = {};
 
 (async () => {
-  const entry = createFlow(
+  const entry = createProcess(
     Object.assign(a, {
       steps: [
         step.call(a, async function * () {

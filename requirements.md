@@ -19,7 +19,7 @@
 >Merge the results of all step execution through context passing.
 
 #### Expected APIs
-- [function: createFlow](#function-createflow)
+- [function: createProcess](#function-createProcess)
 - [class: Steps](#class-steps)
   * [steps.reset()](#stepsreset)
   * [steps.skip(steps)](#stepsskipsteps)
@@ -27,21 +27,21 @@
   * [steps.execTo(step)[return Promise]](#stepsexectostep)
   * [steps.execBefore(step)[return Promise]](#stepsexecbeforestep)
 
-#### function: createFlow
+#### function: createProcess
 By sequence, it can be redefined the combined sequence steps for steps runner.
 
 ```javascript
 (async (context) => {
-  const flow = createFlow(
-    Login,
-    Navigation,
-    Setting,
-    MakeCalls,
-  )
-  const process = flow(context);
-  await process.execTo(Navigation);
-  await process.execBefore(Setting.callingSetting);
-  await process.exec();
+  const process = createProcess(
+      Login,
+      Navigation,
+      Setting,
+      MakeCalls,
+    )
+    const instance = process(context);
+    await instance.execTo(Navigation);
+    await instance.execBefore(Setting.callingSetting);
+    await instance.exec();
 })();
 ```
 
@@ -59,9 +59,7 @@ Steps Examples:
 
 ```javascript
 
-import { Steps, createFlow } from 'marten';
-
-class Login extends Steps {
+class Login {
   static async inputUsername(ctx, username) {
     // input username
   }
@@ -85,7 +83,7 @@ class Login extends Steps {
 
 class Navigation extends Steps {
   static async goto(ctx) {
-    const login = createFlow(Login)(ctx);
+    const login = createProcess(Login)(ctx);
     await login.exec(ctx);
   }
 
@@ -96,9 +94,9 @@ class Navigation extends Steps {
   }
 }
 
-class Meeting extends Steps {
+class Meeting {
   static async prepare(ctx) {
-    const navigation = createFlow(Navigation)(ctx);
+    const navigation = createProcess(Navigation)(ctx);
     await navigation.exec();
   }
   

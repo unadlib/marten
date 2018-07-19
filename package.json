@@ -1,7 +1,7 @@
 {
   "name": "marten",
   "version": "1.0.0",
-  "description": "A flow controller library.",
+  "description": "A process controller library.",
   "main": "index.js",
   "directories": {
     "lib": "lib"
@@ -14,8 +14,7 @@
     "url": "git+https://github.com/unadlib/marten.git"
   },
   "keywords": [
-    "flow",
-    "controller"
+    "process controller"
   ],
   "author": "unadlib",
   "license": "MIT",

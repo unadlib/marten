@@ -2,13 +2,13 @@ import Steps from './lib/steps';
 import { generateItem, generateSteps, step } from './lib/harmony';
 
 /**
- * Create steps flow.
- * const flow = createFlow(steps);
- * flow(context); // batch to inject context.
+ * Create steps Process.
+ * const process = createProcess(steps);
+ * process(context); // batch to inject context.
  * @param stepsSequence
- * @returns {function(*=): StepsFlow}
+ * @returns {function(*=, *=): Process}
  */
-function createFlow(...stepsSequence) {
+function createProcess(...stepsSequence) {
   const _stepsSequence = stepsSequence.reduce((_stepsSequence, item) => {
     if (!item.steps) {
       item = generateItem(item);
@@ -19,7 +19,7 @@ function createFlow(...stepsSequence) {
     };
   }, { steps: [], _steps: [] });
 
-  class StepsFlow extends Steps {
+  class Process extends Steps {
 
     skip(...options) {
       options.forEach((position) => {
@@ -59,10 +59,10 @@ function createFlow(...stepsSequence) {
     }
   }
 
-  return (context, options) => new StepsFlow(context, options);
+  return (context, options) => new Process(context, options);
 }
 
 export {
-  createFlow,
+  createProcess,
   step
 };

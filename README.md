@@ -1,5 +1,5 @@
 # marten
-A Flow Controller Library.
+A Process Controller Library.
 
 #### Solution Goal
 
@@ -20,7 +20,7 @@ A Flow Controller Library.
 >Merge the results of all step execution through context passing.
 
 ## APIs
-- [function: createFlow](#function-createflow)
+- [function: createProcess](#function-createProcess)
 - [class: Steps](#class-steps)
   * [steps.reset()](#stepsreset)
   * [steps.skip([step])](#stepsskipstep)
@@ -28,21 +28,21 @@ A Flow Controller Library.
   * [steps.execTo(step)[return Promise]](#stepsexectostep)
   * [steps.execBefore(step)[return Promise]](#stepsexecbeforestep)
 
-#### function: createFlow
+#### function: createProcess
 By sequence, it can be redefined the combined sequence steps for steps runner.
 
 ```javascript
 (async (context) => {
-  const flow = createFlow(
+  const process = createProcess(
       Login,
       Navigation,
       Setting,
       MakeCalls,
     )
-    const process = flow(context);
-    await process.execTo(Navigation);
-    await process.execBefore(Setting.callingSetting);
-    await process.exec();
+    const instance = process(context);
+    await instance.execTo(Navigation);
+    await instance.execBefore(Setting.callingSetting);
+    await instance.exec();
 })();
 ```
 
@@ -51,26 +51,26 @@ Steps Runner can be controlled the operation of the current sub steps by free.
 
 ##### steps.reset()
 
-Reset all steps ignore in the flow and initialize flow.
+Reset all steps ignore in the process and initialize process.
 
 ##### steps.skip([step])
 - `step` <`function`>
 
-Set skip some steps in the flow.
+Set skip some steps in the process.
 
 ##### steps.exec()
 - **return** <`Promise`>
 
-Execute the flow by set sequence and skip setting.
+Execute the process by set sequence and skip setting.
 
 ##### steps.execTo(step)
 - `step` <`function|class`>
 - **return** <`Promise`>
 
-Run steps until a step position.
+Execute steps until a step position.
 
 ##### steps.execBefore(step)
 - `step` <`function|class`>
 - **return** <`Promise`>
 
-Run steps before a step position.
+Execute steps before a step position.
