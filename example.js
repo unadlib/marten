@@ -4,7 +4,7 @@ class login {
   input
   click
 }
-console.log(1);
+console.log(11);
 export class Entry {
   @step
   static async * init(ctx) {
