@@ -4,7 +4,8 @@ class login {
   input
   click
 }
-console.log(11);
+console.log(1);
+
 export class Entry {
   @step
   static async * init(ctx) {
@@ -20,28 +21,14 @@ export class Entry {
     console.log('init-10: ', ctx, test);
   }
 
-  async ytt () {
-
-  }
-
   static get steps() {
     return [
       this.init,
       this.init1,
-      this.
     ];
   }
 }
 export class Entry1 {
-  @step
-  static async * test() {
-    yield await a();
-    yield await a();
-    yield await a();
-    yield await a();
-  }
-
-
   @step
   static async * init(ctx) {
     const entry = createProcess(Entry)(ctx);
