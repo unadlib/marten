@@ -20,7 +20,6 @@ function createProcess(...stepsSequence) {
   }, { steps: [], _steps: [] });
 
   class Process extends Steps {
-
     skip(...options) {
       options.forEach((position) => {
         if (position.steps) {
