@@ -8,10 +8,10 @@ export default {
   execOperation(operate) {
     throw new Error(`Execution '${operate}' mode error.`);
   },
-  execStep(){
+  execStep() {
     throw new Error('Step function was not exist.');
   },
-  repeatedSteps(){
+  repeatedSteps() {
     throw new Error('Getter steps exists at least one repeat step.');
   },
   deprecated() {

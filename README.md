@@ -20,6 +20,7 @@ A Process Controller Library.
 >Merge the results of all step execution through context passing.
 
 ## APIs
+- [function: generate](#function-generate)
 - [function: createProcess](#function-createProcess)
 - [class: Steps](#class-steps)
   * [steps.reset()](#stepsreset)
@@ -27,6 +28,28 @@ A Process Controller Library.
   * [steps.exec()[return Promise]](#stepsexec)
   * [steps.execTo(step)[return Promise]](#stepsexectostep)
   * [steps.execBefore(step)[return Promise]](#stepsexecbeforestep)
+
+#### function: generate
+If you need to control every step of the process, it is a useful process middleware.
+
+```javascript
+const createProcess = generate({
+  async before({
+    step,
+    context,
+    options,
+  }) {
+    console.log(step.name);
+  },
+  async after({
+    step,
+    context,
+    options,
+  }) {
+    console.log(step.name);
+  }
+});
+```
 
 #### function: createProcess
 By sequence, it can be redefined the combined sequence steps for steps runner.

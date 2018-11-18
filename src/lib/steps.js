@@ -83,6 +83,16 @@ export default class Steps {
   }
 
   /**
+   * Get a step by pointer.
+   * @param pointer
+   * @returns {function}
+   * @private
+   */
+  getStep(pointer) {
+    return this.constructor.steps[pointer];
+  }
+
+  /**
    * Add ignored Steps by step.
    * @param steps
    * @returns {Steps}
@@ -140,7 +150,7 @@ export default class Steps {
 
   // TODO: pass options.
   /**
-   * Perform steps by async generator.
+   * Run steps by async generator.
    * @param options
    * @returns {Promise.<void>}
    */
@@ -158,8 +168,33 @@ export default class Steps {
    */
   async _runner() {
     while (!this._currentResult || !this._currentResult.done) {
-      this._currentResult = await this._currentStep.next();
+      this._currentResult = await this._perform();
     }
+  }
+
+  /**
+   * Perform current async generator.
+   * @param {*} options 
+   * @returns {Promise.<void>}
+   * @private
+   */
+  async _perform(options) {
+    if (this._before && !this._currentResult) {
+      await this._before({
+        step: this.getStep(this._pointer),
+        context: this._context,
+        options,
+      });
+    }
+    const currentResult = await this._currentStep.next(options);
+    if (this._after && !this._currentResult) {
+      await this._after({
+        step: this.getStep(this._pointer),
+        context: this._context,
+        options,
+      });
+    }
+    return currentResult;
   }
 
   /**
@@ -246,7 +281,7 @@ export default class Steps {
    * @returns {Promise.<*>}
    */
   async next(options) {
-    const result = await this._currentStep.next(options);
+    const result = await this._perform(options);
     if (result && result.done) {
       const next = this._pointer + 1;
       this._move(next);

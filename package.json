@@ -1,6 +1,6 @@
 {
   "name": "marten",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "A process controller library.",
   "main": "dist/index.js",
   "scripts": {
@@ -24,8 +24,10 @@
   "homepage": "https://github.com/unadlib/marten#readme",
   "devDependencies": {
     "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.1",
+    "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.0.0",
+    "babel-core": "^7.0.0-bridge",
+    "babel-jest": "^23.6.0",
     "coveralls": "^3.0.2",
     "jest": "^23.6.0"
   }
