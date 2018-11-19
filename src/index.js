@@ -1,5 +1,5 @@
 import Steps from './lib/steps';
-import { generateItem, generateSteps, step } from './lib/harmony';
+import { generateItem, generateSteps, step, bindSteps } from './lib/harmony';
 
 function generate({
   before = async () => {},
@@ -18,7 +18,7 @@ function generate({
         item = generateItem(item);
       }
       return {
-        steps: [..._stepsSequence.steps, ...item.steps],
+        steps: [..._stepsSequence.steps, ...bindSteps(item)],
         _steps: [..._stepsSequence._steps, ...generateSteps(item)],
       };
     }, { steps: [], _steps: [] });

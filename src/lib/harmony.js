@@ -58,3 +58,10 @@ export function generateSteps(item) {
     }.bind(item);
   });
 }
+
+export function bindSteps(item) {
+  return item.steps.map((step) => {
+    step.__steps__ = item;
+    return step;
+  });
+}

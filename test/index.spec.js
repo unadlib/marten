@@ -285,4 +285,50 @@ describe('preset', () => {
             "after: filter",
         ]);
     });
+
+    it('use `preset` set async hooks with `bindSteps`', async () => {
+        const stepHooksResult = [];
+        const $createProcess = generate({
+            before: async ({ step }) => {
+                stepHooksResult.push(`before: ${step.__steps__.name} ${step.name}`);
+                await new Promise(resolve => setTimeout(resolve, 200));
+            },
+            after: async ({ step }) => {
+                await new Promise(resolve => setTimeout(resolve, 200));
+                stepHooksResult.push(`after: ${step.__steps__.name} ${step.name}`);
+            },
+        });
+        const Reselect = getReselectFn($createProcess);
+        const process = $createProcess(
+            Enter,
+            Select,
+            Pay,
+            Reselect
+        )({});
+        await process.exec();
+        expect(stepHooksResult).toEqual([
+            "before: Enter goto",
+            "after: Enter goto",
+            "before: Select pick",
+            "after: Select pick",
+            "before: Select filter",
+            "after: Select filter",
+            "before: Pay count",
+            "after: Pay count",
+            "before: Pay checkout",
+            "after: Pay checkout",
+            "before: Reselect cancel",
+            "after: Reselect cancel",
+            "before: Reselect reselect",
+            "before: Select pick",
+            "after: Select pick",
+            "before: Select filter",
+            "after: Select filter",
+            "before: Pay count",
+            "after: Pay count",
+            "before: Pay checkout",
+            "after: Pay checkout",
+            "after: Reselect reselect",
+        ]);
+    });
 });
