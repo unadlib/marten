@@ -113,6 +113,31 @@ describe('createProcess', () => {
         });
     });
 
+    it('skip && Exec to some combined Steps with actions', async () => {
+        const process = createProcess(
+            Enter,
+            Select,
+            Pay,
+        )({});
+        await spy({
+            fn: async () => {
+                await process.skip(Enter);
+                await process.execTo(Select.pick);
+            },
+            expectValue: [
+                ["pick"],
+            ],
+        });
+        await spy({
+            fn: async () => {
+                await process.skip(Select.filter, Pay.count)
+                await process.exec();
+            },
+            expectValue: [
+                ["checkout"],
+            ],
+        });
+    });
     it('Exec to some combined Steps with actions', async () => {
         const process = createProcess(
             Enter,
