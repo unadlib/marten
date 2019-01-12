@@ -25,5 +25,31 @@ describe('warning', () => {
             spy.mockClear();
             console.warn = preSpy;
         }
-    })
+    });
+    it('throw new Error when setSteps', () => {
+        expect(()=>{
+            warning.setSteps();
+        }).toThrowError('Getter \'steps\' should be implemented as array.');
+    });
+    it('throw new Error when skipStep', () => {
+        expect(()=>{
+            warning.skipStep();
+        }).toThrowError('Set skip step error.');
+    });
+    it('throw new Error when execOperation', () => {
+        const operate = 'Test';
+        expect(()=>{
+            warning.execOperation(operate);
+        }).toThrowError(`Execution '${operate}' mode error.`);
+    });
+    it('throw new Error when execStep', () => {
+        expect(()=>{
+            warning.execStep();
+        }).toThrowError('Step function was not exist.');
+    });
+    it('throw new Error when execStep', () => {
+        expect(()=>{
+            warning.repeatedSteps();
+        }).toThrowError('Getter steps exists at least one repeat step.');
+    });
 });
